@@ -7,7 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
-@interface TMDDocument : NSDocument
+@interface TMDDocument : NSDocument <NSTextDelegate>
+@property (unsafe_unretained) IBOutlet NSTextView *MarkdownTextView;
+@property (weak) IBOutlet WebView *OutputView;
 
 @end
