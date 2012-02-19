@@ -20,4 +20,4 @@ You can, of course, use any other markdown implementation but will have to adjus
 ---
 
 Cheers,
-	[Tho](mathematical.conscience@gmail.com)
+	[Tho](mailto:mathematical.conscience@gmail.com)
