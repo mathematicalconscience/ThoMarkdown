@@ -1,0 +1,307 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D971714F1238C002DF7FD /* Cocoa.framework */; };
+		A40D972214F1238C002DF7FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A40D972014F1238C002DF7FD /* InfoPlist.strings */; };
+		A40D972414F1238C002DF7FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A40D972314F1238C002DF7FD /* main.m */; };
+		A40D972814F1238C002DF7FD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A40D972614F1238C002DF7FD /* Credits.rtf */; };
+		A40D972B14F1238C002DF7FD /* TMDDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A40D972A14F1238C002DF7FD /* TMDDocument.m */; };
+		A40D972E14F1238C002DF7FD /* TMDDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972C14F1238C002DF7FD /* TMDDocument.xib */; };
+		A40D973114F1238C002DF7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972F14F1238C002DF7FD /* MainMenu.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A40D971314F1238C002DF7FD /* ThoMarkdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThoMarkdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A40D971714F1238C002DF7FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		A40D971A14F1238C002DF7FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		A40D971B14F1238C002DF7FD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A40D971C14F1238C002DF7FD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A40D971F14F1238C002DF7FD /* ThoMarkdown-Info.plist */ = {isa = PBXFileReference; path = "ThoMarkdown-Info.plist"; sourceTree = "<group>"; };
+		A40D972114F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A40D972314F1238C002DF7FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A40D972514F1238C002DF7FD /* ThoMarkdown-Prefix.pch */ = {isa = PBXFileReference; path = "ThoMarkdown-Prefix.pch"; sourceTree = "<group>"; };
+		A40D972714F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		A40D972914F1238C002DF7FD /* TMDDocument.h */ = {isa = PBXFileReference; path = TMDDocument.h; sourceTree = "<group>"; };
+		A40D972A14F1238C002DF7FD /* TMDDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TMDDocument.m; sourceTree = "<group>"; };
+		A40D972D14F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TMDDocument.xib; sourceTree = "<group>"; };
+		A40D973014F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A40D971014F1238C002DF7FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A40D970814F1238C002DF7FD = {
+			isa = PBXGroup;
+			children = (
+				A40D971D14F1238C002DF7FD /* ThoMarkdown */,
+				A40D971614F1238C002DF7FD /* Frameworks */,
+				A40D971414F1238C002DF7FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40D971414F1238C002DF7FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A40D971314F1238C002DF7FD /* ThoMarkdown.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A40D971614F1238C002DF7FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A40D971714F1238C002DF7FD /* Cocoa.framework */,
+				A40D971914F1238C002DF7FD /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A40D971914F1238C002DF7FD /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A40D971A14F1238C002DF7FD /* AppKit.framework */,
+				A40D971B14F1238C002DF7FD /* CoreData.framework */,
+				A40D971C14F1238C002DF7FD /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		A40D971D14F1238C002DF7FD /* ThoMarkdown */ = {
+			isa = PBXGroup;
+			children = (
+				A40D972914F1238C002DF7FD /* TMDDocument.h */,
+				A40D972A14F1238C002DF7FD /* TMDDocument.m */,
+				A40D972C14F1238C002DF7FD /* TMDDocument.xib */,
+				A40D972F14F1238C002DF7FD /* MainMenu.xib */,
+				A40D971E14F1238C002DF7FD /* Supporting Files */,
+			);
+			path = ThoMarkdown;
+			sourceTree = "<group>";
+		};
+		A40D971E14F1238C002DF7FD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A40D971F14F1238C002DF7FD /* ThoMarkdown-Info.plist */,
+				A40D972014F1238C002DF7FD /* InfoPlist.strings */,
+				A40D972314F1238C002DF7FD /* main.m */,
+				A40D972514F1238C002DF7FD /* ThoMarkdown-Prefix.pch */,
+				A40D972614F1238C002DF7FD /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A40D971214F1238C002DF7FD /* ThoMarkdown */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A40D973414F1238C002DF7FD /* Build configuration list for PBXNativeTarget "ThoMarkdown" */;
+			buildPhases = (
+				A40D970F14F1238C002DF7FD /* Sources */,
+				A40D971014F1238C002DF7FD /* Frameworks */,
+				A40D971114F1238C002DF7FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ThoMarkdown;
+			productName = ThoMarkdown;
+			productReference = A40D971314F1238C002DF7FD /* ThoMarkdown.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A40D970A14F1238C002DF7FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = A40D970D14F1238C002DF7FD /* Build configuration list for PBXProject "ThoMarkdown" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A40D970814F1238C002DF7FD;
+			productRefGroup = A40D971414F1238C002DF7FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A40D971214F1238C002DF7FD /* ThoMarkdown */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A40D971114F1238C002DF7FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A40D972214F1238C002DF7FD /* InfoPlist.strings in Resources */,
+				A40D972814F1238C002DF7FD /* Credits.rtf in Resources */,
+				A40D972E14F1238C002DF7FD /* TMDDocument.xib in Resources */,
+				A40D973114F1238C002DF7FD /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A40D970F14F1238C002DF7FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A40D972414F1238C002DF7FD /* main.m in Sources */,
+				A40D972B14F1238C002DF7FD /* TMDDocument.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A40D972014F1238C002DF7FD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A40D972114F1238C002DF7FD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A40D972614F1238C002DF7FD /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A40D972714F1238C002DF7FD /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		A40D972C14F1238C002DF7FD /* TMDDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A40D972D14F1238C002DF7FD /* en */,
+			);
+			name = TMDDocument.xib;
+			sourceTree = "<group>";
+		};
+		A40D972F14F1238C002DF7FD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A40D973014F1238C002DF7FD /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A40D973214F1238C002DF7FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A40D973314F1238C002DF7FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A40D973514F1238C002DF7FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ThoMarkdown/ThoMarkdown-Prefix.pch";
+				INFOPLIST_FILE = "ThoMarkdown/ThoMarkdown-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A40D973614F1238C002DF7FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ThoMarkdown/ThoMarkdown-Prefix.pch";
+				INFOPLIST_FILE = "ThoMarkdown/ThoMarkdown-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A40D970D14F1238C002DF7FD /* Build configuration list for PBXProject "ThoMarkdown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A40D973214F1238C002DF7FD /* Debug */,
+				A40D973314F1238C002DF7FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A40D973414F1238C002DF7FD /* Build configuration list for PBXNativeTarget "ThoMarkdown" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A40D973514F1238C002DF7FD /* Debug */,
+				A40D973614F1238C002DF7FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A40D970A14F1238C002DF7FD /* Project object */;
+}
