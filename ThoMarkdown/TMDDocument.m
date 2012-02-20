@@ -11,6 +11,7 @@
 @interface TMDDocument ()
 @property (strong) NSAttributedString *content;
 - (void)convertMarkdownToWebView;
+-(void)updateSyntaxHighlighting; 
 @end
 
 @implementation TMDDocument
@@ -183,11 +184,16 @@
 // simple syntax highlighting 
 - (void)textStorageDidProcessEditing:(NSNotification *)notification
 {
-	NSTextStorage *textStorage = [notification object];
+	[self performSelectorOnMainThread:@selector(updateSyntaxHighlighting) withObject:nil waitUntilDone:NO]; 
+}
+
+-(void)updateSyntaxHighlighting; 
+{
+	NSTextStorage *textStorage = self.MarkdownTextView.layoutManager.textStorage;
 	NSRange found, area;
 	NSString *string = [textStorage string];
 	NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
-	NSLayoutManager *lm = [[textStorage layoutManagers] objectAtIndex: 0];
+	NSLayoutManager *lm = self.MarkdownTextView.layoutManager;
 	NSUInteger length = [string length];
 	
 	[attr setObject: [NSColor blueColor]
