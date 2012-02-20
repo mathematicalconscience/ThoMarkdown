@@ -21,6 +21,7 @@
 @synthesize MarkdownTextView;
 @synthesize OutputView;
 @synthesize content;
+@synthesize wordCount;
 
 - (id)init
 {
@@ -50,6 +51,7 @@
 	[self.MarkdownTextView setUsesFontPanel:NO];
 	[[self.MarkdownTextView textStorage] setDelegate:self];
 	[[self.MarkdownTextView textStorage] setAttributedString:self.content];
+	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	NSFont *fixedWidthFont = [NSFont userFixedPitchFontOfSize:12.0];
 	[self.MarkdownTextView setFont:fixedWidthFont];
 	[self convertMarkdownToWebView];
@@ -119,11 +121,7 @@
 	NSTask *mmd = [[NSTask alloc] init];
 	NSString *launchPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"multimarkdown"];
 	[mmd setLaunchPath:launchPath];
-	
-	//	NSArray *arguments;
-	//	arguments = [NSArray arrayWithObject:[self.content string]];
-	//	[mmd setArguments: arguments];
-	
+		
 	NSPipe *outPipe;
 	outPipe = [NSPipe pipe];
 	[mmd setStandardOutput: outPipe];
@@ -162,6 +160,7 @@
 - (void)textDidChange:(NSNotification *)notification
 {
 	self.content = [self.MarkdownTextView textStorage];
+	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	
 	[self convertMarkdownToWebView];
 }

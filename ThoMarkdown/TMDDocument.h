@@ -12,5 +12,5 @@
 @interface TMDDocument : NSDocument <NSTextDelegate, NSTextStorageDelegate>
 @property (unsafe_unretained) IBOutlet NSTextView *MarkdownTextView;
 @property (weak) IBOutlet WebView *OutputView;
-
+@property (assign) NSUInteger wordCount;
 @end
