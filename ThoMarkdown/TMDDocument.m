@@ -101,6 +101,18 @@
 }
 
 #pragma mark -
+#pragma mark IBActions
+
+- (IBAction)copyToClipboardClicked:(id)sender 
+{
+	NSDictionary *element;
+	NSArray *pboardTypes;
+	// TODO: implement
+	//[self.OutputView writeElement:element withPasteboardTypes:pboardTypes toPasteboard:[NSPasteboard pasteboardWithName:NSGeneralPboard]];
+}
+
+
+#pragma mark -
 #pragma mark WebPolicyDelegate methods
 //open all links in the default browser, not in the web view which is used for rendering the converted markdown doc
 -(void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener; 
@@ -200,4 +212,5 @@
 		area.length = length - area.location;
 	}
 }
+
 @end
