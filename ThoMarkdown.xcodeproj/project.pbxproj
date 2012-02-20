@@ -16,8 +16,6 @@
 		A40D973114F1238C002DF7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972F14F1238C002DF7FD /* MainMenu.xib */; };
 		A481224714F13F5B00675F97 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A481224614F13F5A00675F97 /* WebKit.framework */; };
 		A481224A14F144F900675F97 /* multimarkdown in Resources */ = {isa = PBXBuildFile; fileRef = A481224914F144F900675F97 /* multimarkdown */; };
-		A481225314F14EA000675F97 /* header.png in Resources */ = {isa = PBXBuildFile; fileRef = A481225014F14EA000675F97 /* header.png */; };
-		A481225414F14EA000675F97 /* teaser.png in Resources */ = {isa = PBXBuildFile; fileRef = A481225114F14EA000675F97 /* teaser.png */; };
 		A481225514F14EA000675F97 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = A481225214F14EA000675F97 /* style.css */; };
 		A481225714F15C3B00675F97 /* ThoMarkdownIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A481225614F15C3B00675F97 /* ThoMarkdownIcon.icns */; };
 /* End PBXBuildFile section */
@@ -39,8 +37,6 @@
 		A40D973014F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A481224614F13F5A00675F97 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A481224914F144F900675F97 /* multimarkdown */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = multimarkdown; sourceTree = "<group>"; };
-		A481225014F14EA000675F97 /* header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header.png; sourceTree = "<group>"; };
-		A481225114F14EA000675F97 /* teaser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teaser.png; sourceTree = "<group>"; };
 		A481225214F14EA000675F97 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = style.css; path = CSS/style.css; sourceTree = "<group>"; };
 		A481225614F15C3B00675F97 /* ThoMarkdownIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ThoMarkdownIcon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,20 +113,9 @@
 				A40D972314F1238C002DF7FD /* main.m */,
 				A40D972514F1238C002DF7FD /* ThoMarkdown-Prefix.pch */,
 				A40D972614F1238C002DF7FD /* Credits.rtf */,
-				A481224F14F14EA000675F97 /* images */,
 				A481225214F14EA000675F97 /* style.css */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		A481224F14F14EA000675F97 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				A481225014F14EA000675F97 /* header.png */,
-				A481225114F14EA000675F97 /* teaser.png */,
-			);
-			name = images;
-			path = CSS/images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,8 +173,6 @@
 				A40D972E14F1238C002DF7FD /* TMDDocument.xib in Resources */,
 				A40D973114F1238C002DF7FD /* MainMenu.xib in Resources */,
 				A481224A14F144F900675F97 /* multimarkdown in Resources */,
-				A481225314F14EA000675F97 /* header.png in Resources */,
-				A481225414F14EA000675F97 /* teaser.png in Resources */,
 				A481225514F14EA000675F97 /* style.css in Resources */,
 				A481225714F15C3B00675F97 /* ThoMarkdownIcon.icns in Resources */,
 			);

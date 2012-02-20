@@ -14,7 +14,7 @@ You can, of course, use any other markdown implementation but will have to adjus
 
 ---
 
-* Plase, note that this is the work of less than two hours on a lazy sunday afternoon - don't expect anything that works or actually does something useful for you.
+* Please, note that this is the work of less than two hours on a lazy sunday afternoon - don't expect anything that works or actually does something useful for you.
 * Also note that part of the CSS in the bundle is shamelessly borrowed from TextMate.
 
 ---
