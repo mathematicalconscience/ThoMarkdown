@@ -48,10 +48,10 @@
 	// Add any code here that needs to be executed once the windowController has loaded the document's window.
 	[self.MarkdownTextView setRichText:NO];
 	[self.MarkdownTextView setUsesFontPanel:NO];
+	[[self.MarkdownTextView textStorage] setDelegate:self];
 	[[self.MarkdownTextView textStorage] setAttributedString:self.content];
 	NSFont *fixedWidthFont = [NSFont userFixedPitchFontOfSize:12.0];
 	[self.MarkdownTextView setFont:fixedWidthFont];
-	[[self.MarkdownTextView textStorage] setDelegate:self];
 	[self convertMarkdownToWebView];
 	[self.OutputView setPolicyDelegate:self];
 }
