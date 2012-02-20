@@ -109,6 +109,8 @@
 		
 		[[NSWorkspace sharedWorkspace] openURL:[request URL]];
 	}
+	
+	[listener use];
 }
 			
 #pragma mark -
