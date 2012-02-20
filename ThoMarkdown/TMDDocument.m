@@ -53,6 +53,7 @@
 	[self.MarkdownTextView setFont:fixedWidthFont];
 	[[self.MarkdownTextView textStorage] setDelegate:self];
 	[self convertMarkdownToWebView];
+	[self.OutputView setPolicyDelegate:self];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -95,6 +96,19 @@
 + (BOOL)autosavesInPlace
 {
     return YES;
+}
+
+#pragma mark -
+#pragma mark WebPolicyDelegate methods
+//open all links in the default browser, not in the web view which is used for rendering the converted markdown doc
+-(void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener; 
+{
+	if ([[actionInformation valueForKey:WebActionNavigationTypeKey] intValue] == WebNavigationTypeLinkClicked)
+	{
+		[listener ignore]; 
+		
+		[[NSWorkspace sharedWorkspace] openURL:[request URL]];
+	}
 }
 			
 #pragma mark -
