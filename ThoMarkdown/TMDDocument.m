@@ -152,4 +152,39 @@
 	[self convertMarkdownToWebView];
 }
 
+#pragma mark -
+#pragma mark NSTextStorageDelegate
+
+// simple syntax highlighting 
+- (void)textStorageDidProcessEditing:(NSNotification *)notification
+{
+	NSTextStorage *textStorage = [notification object];
+	NSRange found, area;
+	NSString *string = [textStorage string];
+	NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
+	NSLayoutManager *lm = [[textStorage layoutManagers] objectAtIndex: 0];
+	NSUInteger length = [string length];
+	
+	[attr setObject: [NSColor blueColor]
+			 forKey: NSForegroundColorAttributeName];
+	
+	area.location = 0;
+	area.length = length;
+
+	// first, strip all attrs
+	[lm removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:area];
+	
+	while (area.length)
+	{
+		found = [string rangeOfString: @"---"
+					          options: NSCaseInsensitiveSearch
+								range: area];
+		
+		if (found.location == NSNotFound) break;
+		[lm addTemporaryAttributes: attr forCharacterRange: found];
+		
+		area.location = NSMaxRange(found);
+		area.length = length - area.location;
+	}
+}
 @end
