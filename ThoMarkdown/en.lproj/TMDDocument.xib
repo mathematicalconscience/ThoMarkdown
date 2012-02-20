@@ -43,7 +43,7 @@
 				<int key="NSWTFlags">1886912512</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
-				<string key="NSViewClass">View</string>
+				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<string key="NSWindowContentMinSize">{94, 86}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
@@ -88,7 +88,7 @@
 																<string>WebURLsWithTitlesPboardType</string>
 																<string>public.url</string>
 															</set>
-															<string key="NSFrame">{{0, 5}, {417, 14}}</string>
+															<string key="NSFrameSize">{417, 1}</string>
 															<reference key="NSSuperview" ref="471411419"/>
 															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="342092671"/>
@@ -161,7 +161,7 @@
 															<nil key="NSDelegate"/>
 														</object>
 													</array>
-													<string key="NSFrame">{{1, 1}, {417, 693}}</string>
+													<string key="NSFrame">{{1, 1}, {417, 673}}</string>
 													<reference key="NSSuperview" ref="878086503"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="324729810"/>
@@ -197,7 +197,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 												<object class="NSScroller" id="342092671">
 													<reference key="NSNextResponder" ref="878086503"/>
 													<int key="NSvFlags">256</int>
-													<string key="NSFrame">{{418, 1}, {15, 693}}</string>
+													<string key="NSFrame">{{418, 1}, {15, 673}}</string>
 													<reference key="NSSuperview" ref="878086503"/>
 													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="1059271525"/>
@@ -222,7 +222,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 													<double key="NSPercent">0.94565218687057495</double>
 												</object>
 											</array>
-											<string key="NSFrame">{{0, -5}, {434, 695}}</string>
+											<string key="NSFrame">{{0, -5}, {434, 675}}</string>
 											<reference key="NSSuperview" ref="283916027"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="1072993259"/>
@@ -233,7 +233,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 											<reference key="NSContentView" ref="471411419"/>
 										</object>
 									</array>
-									<string key="NSFrameSize">{434, 690}</string>
+									<string key="NSFrameSize">{434, 670}</string>
 									<reference key="NSSuperview" ref="550328655"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="878086503"/>
@@ -264,7 +264,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 												<string>public.url</string>
 												<string>public.url-name</string>
 											</set>
-											<string key="NSFrameSize">{415, 690}</string>
+											<string key="NSFrameSize">{415, 670}</string>
 											<reference key="NSSuperview" ref="1059271525"/>
 											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView"/>
@@ -283,7 +283,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 											<bool key="AllowsUndo">YES</bool>
 										</object>
 									</array>
-									<string key="NSFrame">{{444, 0}, {415, 690}}</string>
+									<string key="NSFrame">{{444, 0}, {415, 670}}</string>
 									<reference key="NSSuperview" ref="550328655"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="88735270"/>
@@ -291,13 +291,25 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</array>
-							<string key="NSFrameSize">{859, 690}</string>
+							<string key="NSFrame">{{0, 20}, {859, 670}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="283916027"/>
 							<string key="NSReuseIdentifierKey">_NS:1163</string>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">3</int>
+						</object>
+						<object class="NSCustomView" id="320810483">
+							<reference key="NSNextResponder" ref="568628114"/>
+							<int key="NSvFlags">290</int>
+							<string key="NSFrameSize">{859, 20}</string>
+							<reference key="NSSuperview" ref="568628114"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
+							<bool key="NSViewIsLayerTreeHost">YES</bool>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
+							<string key="NSReuseIdentifierKey">_NS:1192</string>
+							<string key="NSClassName">TMDStatusBarView</string>
 						</object>
 					</array>
 					<string key="NSFrameSize">{859, 690}</string>
@@ -391,6 +403,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="object" ref="568628114"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="550328655"/>
+							<reference ref="320810483"/>
 						</array>
 						<reference key="parent" ref="275939982"/>
 					</object>
@@ -455,6 +468,11 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="object" ref="88735270"/>
 						<reference key="parent" ref="1059271525"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">100040</int>
+						<reference key="object" ref="320810483"/>
+						<reference key="parent" ref="568628114"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -469,6 +487,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string key="100026.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="100027.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="100028.IBPluginDependency">com.apple.WebKitIBPlugin</string>
+				<string key="100040.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBWindowTemplateEditedContentRect">{{133, 170}, {507, 413}}</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -477,7 +496,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">100031</int>
+			<int key="maxID">100040</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -542,6 +561,14 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/TMDDocument.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TMDStatusBarView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TMDStatusBarView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
