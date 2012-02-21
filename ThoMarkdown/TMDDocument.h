@@ -14,4 +14,5 @@
 @property (unsafe_unretained) IBOutlet NSTextView *MarkdownTextView;
 @property (weak) IBOutlet WebView *OutputView;
 @property (assign) NSUInteger wordCount;
+@property (weak) IBOutlet NSDictionaryController *themesDictionaryController;
 @end

@@ -25,6 +25,7 @@
 @synthesize OutputView;
 @synthesize markdownContent, htmlContent;
 @synthesize wordCount;
+@synthesize themesDictionaryController;
 
 - (id)init
 {
@@ -58,6 +59,7 @@
 	[self.MarkdownTextView setFont:fixedWidthFont];
 	[self convertMarkdownToWebView];
 	[self.OutputView setPolicyDelegate:self];
+	[self.themesDictionaryController addObserver:self forKeyPath:@"selectionIndex" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -100,6 +102,15 @@
 + (BOOL)autosavesInPlace
 {
     return YES;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == self.themesDictionaryController) {
+        [self convertMarkdownToWebView]; 
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 #pragma mark -
@@ -187,7 +198,11 @@
 	
 	NSMutableString *htmlString = [NSMutableString string];
 	// add css to html
-	[htmlString appendString:@"<link rel=\"stylesheet\" href=\"style.css\">"];
+	if ([self.themesDictionaryController selectionIndex] != NSNotFound)
+	{
+		NSString *pathToCSS = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
+		[htmlString appendString:[NSString stringWithFormat:@"<link rel=\"stylesheet\" href=\"%@\">", pathToCSS]];
+	}
 	
 	[htmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
 	
