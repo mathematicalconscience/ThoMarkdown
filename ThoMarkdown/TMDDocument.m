@@ -131,21 +131,6 @@
 	[pasteBoard setData:[archive data] forType:WebArchivePboardType];
 	[pasteBoard setData:rtf forType:NSRTFPboardType];	
 	[pasteBoard setString:self.htmlContent forType:NSHTMLPboardType];
-	
-	
-//	// Gets a list of all <body></body> nodes.
-//    DOMNodeList *bodyNodeList = [[[self.OutputView mainFrame] DOMDocument] getElementsByTagName:@"body"];
-//	
-//    // There should be just one in valid HTML, so get the first DOMElement.
-//    DOMHTMLElement *bodyNode = (DOMHTMLElement *) [bodyNodeList item:0];
-//	
-//	NSDictionary *element = [NSDictionary dictionaryWithObject:bodyNode forKey:WebElementDOMNodeKey];
-//	
-//	
-//	
-//	NSArray *pboardTypes = [self.OutputView pasteboardTypesForElement:element];
-//	// TODO: implement
-//	[self.OutputView writeElement:element withPasteboardTypes:pboardTypes toPasteboard:[NSPasteboard pasteboardWithName:NSGeneralPboard]];
 }
 
 
