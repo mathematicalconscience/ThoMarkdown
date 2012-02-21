@@ -17,6 +17,8 @@
 
 @implementation TMDThemeManager
 
+@synthesize themes;
+
 - (id)init
 {
     self = [super init];
