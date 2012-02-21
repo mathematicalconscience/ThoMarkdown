@@ -9,19 +9,21 @@
 #import "TMDDocument.h"
 
 @interface TMDDocument ()
-@property (strong) NSAttributedString *content;
+@property (strong) NSAttributedString *markdownContent;
+@property (strong) NSString *htmlContent;
 - (void)convertMarkdownToWebView;
 -(void)updateSyntaxHighlighting; 
 @end
 
 @implementation TMDDocument
 {
-	NSAttributedString *content;
+	NSAttributedString *markdownContent;
+	NSString *htmlContent;
 }
 
 @synthesize MarkdownTextView;
 @synthesize OutputView;
-@synthesize content;
+@synthesize markdownContent, htmlContent;
 @synthesize wordCount;
 
 - (id)init
@@ -30,9 +32,8 @@
     if (self) {
 		// Add your subclass-specific initialization here.
 		// If an error occurs here, return nil.
-		if (!content) {
-			self.content = [[NSAttributedString alloc] initWithString:@""];
-		}
+			self.markdownContent = [[NSAttributedString alloc] initWithString:@""];
+			self.htmlContent = [[NSString alloc] initWithString:@""];
     }
     return self;
 }
@@ -51,7 +52,7 @@
 	[self.MarkdownTextView setRichText:NO];
 	[self.MarkdownTextView setUsesFontPanel:NO];
 	[[self.MarkdownTextView textStorage] setDelegate:self];
-	[[self.MarkdownTextView textStorage] setAttributedString:self.content];
+	[[self.MarkdownTextView textStorage] setAttributedString:self.markdownContent];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	NSFont *fixedWidthFont = [NSFont userFixedPitchFontOfSize:12.0];
 	[self.MarkdownTextView setFont:fixedWidthFont];
@@ -67,10 +68,10 @@
 	*/
 	
 	NSData *data;
-    self.content = [self.MarkdownTextView textStorage];
+    self.markdownContent = [self.MarkdownTextView textStorage];
     [self.MarkdownTextView breakUndoCoalescing];
 	
-	NSString *plainString = [self.content string];
+	NSString *plainString = [self.markdownContent string];
 	data = [plainString dataUsingEncoding:NSUTF8StringEncoding];
 	
     return data;
@@ -89,7 +90,7 @@
 	
 	if (fileContents) 
 	{
-		self.content = fileContents;
+		self.markdownContent = fileContents;
 		return YES;
 	}
 	else
@@ -106,17 +107,34 @@
 
 - (IBAction)copyToClipboardClicked:(id)sender 
 {
-	// Gets a list of all <body></body> nodes.
-    DOMNodeList *bodyNodeList = [[[self.OutputView mainFrame] DOMDocument] getElementsByTagName:@"body"];
+	WebArchive *archive = [[[self.OutputView mainFrame] dataSource] webArchive];
+	NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:[self.htmlContent dataUsingEncoding:NSUTF8StringEncoding] 
+																   baseURL:[[self fileURL] baseURL] 
+														documentAttributes:NULL];
+	NSData *rtf = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
 	
-    // There should be just one in valid HTML, so get the first DOMElement.
-    DOMHTMLElement *bodyNode = (DOMHTMLElement *) [bodyNodeList item:0];
 	
-	NSDictionary *element = [NSDictionary dictionaryWithObject:bodyNode forKey:WebElementDOMNodeKey];
+	NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+	[pasteBoard clearContents];
 	
-	NSArray *pboardTypes = [self.OutputView pasteboardTypesForElement:element];
-	// TODO: implement
-	[self.OutputView writeElement:element withPasteboardTypes:pboardTypes toPasteboard:[NSPasteboard pasteboardWithName:NSGeneralPboard]];
+	[pasteBoard setData:[archive data] forType:WebArchivePboardType];
+	[pasteBoard setData:rtf forType:NSRTFPboardType];	
+	[pasteBoard setString:self.htmlContent forType:NSHTMLPboardType];
+	
+	
+//	// Gets a list of all <body></body> nodes.
+//    DOMNodeList *bodyNodeList = [[[self.OutputView mainFrame] DOMDocument] getElementsByTagName:@"body"];
+//	
+//    // There should be just one in valid HTML, so get the first DOMElement.
+//    DOMHTMLElement *bodyNode = (DOMHTMLElement *) [bodyNodeList item:0];
+//	
+//	NSDictionary *element = [NSDictionary dictionaryWithObject:bodyNode forKey:WebElementDOMNodeKey];
+//	
+//	
+//	
+//	NSArray *pboardTypes = [self.OutputView pasteboardTypesForElement:element];
+//	// TODO: implement
+//	[self.OutputView writeElement:element withPasteboardTypes:pboardTypes toPasteboard:[NSPasteboard pasteboardWithName:NSGeneralPboard]];
 }
 
 
@@ -173,6 +191,8 @@
 	
 	[htmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
 	
+	self.htmlContent = htmlString;
+	
 	[[self.OutputView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
 }
 
@@ -181,7 +201,7 @@
 							  
 - (void)textDidChange:(NSNotification *)notification
 {
-	self.content = [self.MarkdownTextView textStorage];
+	self.markdownContent = [self.MarkdownTextView textStorage];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	
 	[self convertMarkdownToWebView];

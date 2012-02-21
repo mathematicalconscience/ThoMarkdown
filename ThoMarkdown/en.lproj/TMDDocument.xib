@@ -252,7 +252,7 @@
 							</object>
 						</object>
 					</dictionary>
-					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
+					<array key="NSToolbarIBAllowedItems">
 						<reference ref="234941550"/>
 						<reference ref="200047660"/>
 						<reference ref="717316520"/>
@@ -317,7 +317,7 @@
 															<string key="NSFrameSize">{417, 14}</string>
 															<reference key="NSSuperview" ref="471411419"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="342092671"/>
+															<reference key="NSNextKeyView" ref="1072993259"/>
 															<string key="NSReuseIdentifierKey">_NS:1480</string>
 															<object class="NSTextContainer" key="NSTextContainer" id="56885099">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -451,7 +451,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 											<string key="NSFrame">{{0, -5}, {434, 675}}</string>
 											<reference key="NSSuperview" ref="283916027"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1072993259"/>
+											<reference key="NSNextKeyView" ref="471411419"/>
 											<string key="NSReuseIdentifierKey">_NS:940</string>
 											<int key="NSsFlags">133138</int>
 											<reference key="NSVScroller" ref="342092671"/>
@@ -574,7 +574,6 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 									<string key="NSFrame">{{99, 0}, {63, 17}}</string>
 									<reference key="NSSuperview" ref="336429984"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<string key="NSReuseIdentifierKey">_NS:3944</string>
 									<bool key="NSEnabled">YES</bool>
@@ -606,7 +605,7 @@ AAEAAQAAAT0AAwAAAAEAAgAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="550328655"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
 				<string key="NSMinSize">{94, 164}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
