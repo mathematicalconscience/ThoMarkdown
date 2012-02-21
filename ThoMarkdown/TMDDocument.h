@@ -10,7 +10,9 @@
 #import <WebKit/WebKit.h>
 
 @interface TMDDocument : NSDocument <NSTextDelegate, NSTextStorageDelegate>
+- (IBAction)copyToClipboardClicked:(id)sender;
 @property (unsafe_unretained) IBOutlet NSTextView *MarkdownTextView;
 @property (weak) IBOutlet WebView *OutputView;
 @property (assign) NSUInteger wordCount;
+@property (weak) IBOutlet NSDictionaryController *themesDictionaryController;
 @end

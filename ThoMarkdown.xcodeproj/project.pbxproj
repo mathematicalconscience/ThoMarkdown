@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */; };
 		A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D971714F1238C002DF7FD /* Cocoa.framework */; };
 		A40D972214F1238C002DF7FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A40D972014F1238C002DF7FD /* InfoPlist.strings */; };
 		A40D972414F1238C002DF7FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A40D972314F1238C002DF7FD /* main.m */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDThemeManager.h; sourceTree = "<group>"; };
+		72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDThemeManager.m; sourceTree = "<group>"; };
 		A40D971314F1238C002DF7FD /* ThoMarkdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThoMarkdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D971714F1238C002DF7FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A40D971A14F1238C002DF7FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -107,6 +110,8 @@
 				A40D972C14F1238C002DF7FD /* TMDDocument.xib */,
 				A4923F7514F2BB5E00AEC2E1 /* TMDStatusBarView.h */,
 				A4923F7614F2BB5E00AEC2E1 /* TMDStatusBarView.m */,
+				72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */,
+				72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */,
 				A40D972F14F1238C002DF7FD /* MainMenu.xib */,
 				A40D971E14F1238C002DF7FD /* Supporting Files */,
 			);
@@ -197,6 +202,7 @@
 				A40D972414F1238C002DF7FD /* main.m in Sources */,
 				A40D972B14F1238C002DF7FD /* TMDDocument.m in Sources */,
 				A4923F7714F2BB5E00AEC2E1 /* TMDStatusBarView.m in Sources */,
+				72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

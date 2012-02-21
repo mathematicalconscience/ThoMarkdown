@@ -9,19 +9,23 @@
 #import "TMDDocument.h"
 
 @interface TMDDocument ()
-@property (strong) NSAttributedString *content;
+@property (strong) NSAttributedString *markdownContent;
+@property (strong) NSString *htmlContent;
 - (void)convertMarkdownToWebView;
+-(void)updateSyntaxHighlighting; 
 @end
 
 @implementation TMDDocument
 {
-	NSAttributedString *content;
+	NSAttributedString *markdownContent;
+	NSString *htmlContent;
 }
 
 @synthesize MarkdownTextView;
 @synthesize OutputView;
-@synthesize content;
+@synthesize markdownContent, htmlContent;
 @synthesize wordCount;
+@synthesize themesDictionaryController;
 
 - (id)init
 {
@@ -29,9 +33,8 @@
     if (self) {
 		// Add your subclass-specific initialization here.
 		// If an error occurs here, return nil.
-		if (!content) {
-			self.content = [[NSAttributedString alloc] initWithString:@""];
-		}
+			self.markdownContent = [[NSAttributedString alloc] initWithString:@""];
+			self.htmlContent = [[NSString alloc] initWithString:@""];
     }
     return self;
 }
@@ -50,12 +53,13 @@
 	[self.MarkdownTextView setRichText:NO];
 	[self.MarkdownTextView setUsesFontPanel:NO];
 	[[self.MarkdownTextView textStorage] setDelegate:self];
-	[[self.MarkdownTextView textStorage] setAttributedString:self.content];
+	[[self.MarkdownTextView textStorage] setAttributedString:self.markdownContent];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	NSFont *fixedWidthFont = [NSFont userFixedPitchFontOfSize:12.0];
 	[self.MarkdownTextView setFont:fixedWidthFont];
 	[self convertMarkdownToWebView];
 	[self.OutputView setPolicyDelegate:self];
+	[self.themesDictionaryController addObserver:self forKeyPath:@"selectionIndex" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -66,10 +70,10 @@
 	*/
 	
 	NSData *data;
-    self.content = [self.MarkdownTextView textStorage];
+    self.markdownContent = [self.MarkdownTextView textStorage];
     [self.MarkdownTextView breakUndoCoalescing];
 	
-	NSString *plainString = [self.content string];
+	NSString *plainString = [self.markdownContent string];
 	data = [plainString dataUsingEncoding:NSUTF8StringEncoding];
 	
     return data;
@@ -88,7 +92,7 @@
 	
 	if (fileContents) 
 	{
-		self.content = fileContents;
+		self.markdownContent = fileContents;
 		return YES;
 	}
 	else
@@ -99,6 +103,36 @@
 {
     return YES;
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == self.themesDictionaryController) {
+        [self convertMarkdownToWebView]; 
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark -
+#pragma mark IBActions
+
+- (IBAction)copyToClipboardClicked:(id)sender 
+{
+	WebArchive *archive = [[[self.OutputView mainFrame] dataSource] webArchive];
+	NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:[self.htmlContent dataUsingEncoding:NSUTF8StringEncoding] 
+																   baseURL:[[self fileURL] baseURL] 
+														documentAttributes:NULL];
+	NSData *rtf = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
+	
+	
+	NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+	[pasteBoard clearContents];
+	
+	[pasteBoard setData:[archive data] forType:WebArchivePboardType];
+	[pasteBoard setData:rtf forType:NSRTFPboardType];	
+	[pasteBoard setString:self.htmlContent forType:NSHTMLPboardType];
+}
+
 
 #pragma mark -
 #pragma mark WebPolicyDelegate methods
@@ -149,9 +183,15 @@
 	
 	NSMutableString *htmlString = [NSMutableString string];
 	// add css to html
-	[htmlString appendString:@"<link rel=\"stylesheet\" href=\"style.css\">"];
+	if ([self.themesDictionaryController selectionIndex] != NSNotFound)
+	{
+		NSString *pathToCSS = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
+		[htmlString appendString:[NSString stringWithFormat:@"<link rel=\"stylesheet\" href=\"%@\">", pathToCSS]];
+	}
 	
 	[htmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
+	
+	self.htmlContent = htmlString;
 	
 	[[self.OutputView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
 }
@@ -161,7 +201,7 @@
 							  
 - (void)textDidChange:(NSNotification *)notification
 {
-	self.content = [self.MarkdownTextView textStorage];
+	self.markdownContent = [self.MarkdownTextView textStorage];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	
 	[self convertMarkdownToWebView];
@@ -173,11 +213,16 @@
 // simple syntax highlighting 
 - (void)textStorageDidProcessEditing:(NSNotification *)notification
 {
-	NSTextStorage *textStorage = [notification object];
+	[self performSelectorOnMainThread:@selector(updateSyntaxHighlighting) withObject:nil waitUntilDone:NO]; 
+}
+
+-(void)updateSyntaxHighlighting; 
+{
+	NSTextStorage *textStorage = self.MarkdownTextView.layoutManager.textStorage;
 	NSRange found, area;
 	NSString *string = [textStorage string];
 	NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
-	NSLayoutManager *lm = [[textStorage layoutManagers] objectAtIndex: 0];
+	NSLayoutManager *lm = self.MarkdownTextView.layoutManager;
 	NSUInteger length = [string length];
 	
 	[attr setObject: [NSColor blueColor]
@@ -202,4 +247,5 @@
 		area.length = length - area.location;
 	}
 }
+
 @end
