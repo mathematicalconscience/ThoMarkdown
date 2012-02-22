@@ -7,12 +7,14 @@
 //
 
 #import "TMDDocument.h"
+#import "TMDExportAccessoryView.h"
 
 @interface TMDDocument ()
 @property (strong) NSAttributedString *markdownContent;
 @property (strong) NSString *htmlContent;
 - (void)convertMarkdownToWebView;
--(void)updateSyntaxHighlighting; 
+- (void)updateSyntaxHighlighting; 
+- (NSString *)displayNameWithoutExtension;
 @end
 
 @implementation TMDDocument
@@ -21,6 +23,7 @@
 	NSString *htmlContent;
 }
 
+@synthesize exportAccessoryView;
 @synthesize MarkdownTextView;
 @synthesize OutputView;
 @synthesize markdownContent, htmlContent;
@@ -59,7 +62,7 @@
 	[self.MarkdownTextView setFont:fixedWidthFont];
 	[self convertMarkdownToWebView];
 	[self.OutputView setPolicyDelegate:self];
-	[self.themesDictionaryController addObserver:self forKeyPath:@"selectionIndex" options:NSKeyValueObservingOptionNew context:NULL];
+	[self.themesDictionaryController addObserver:self forKeyPath:@"selectionIndex" options:NSKeyValueObservingOptionNew context:NULL];	
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -77,7 +80,6 @@
 	data = [plainString dataUsingEncoding:NSUTF8StringEncoding];
 	
     return data;
-	
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
@@ -118,21 +120,104 @@
 
 - (IBAction)copyToClipboardClicked:(id)sender 
 {
+	// Clipboard reps
+	// Webarchive, PDF, RTF, HTML, markdown plaintext
+	
 	WebArchive *archive = [[[self.OutputView mainFrame] dataSource] webArchive];
 	NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:[self.htmlContent dataUsingEncoding:NSUTF8StringEncoding] 
 																   baseURL:[[self fileURL] baseURL] 
 														documentAttributes:NULL];
 	NSData *rtf = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
 	
-	
 	NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
 	[pasteBoard clearContents];
 	
 	[pasteBoard setData:[archive data] forType:WebArchivePboardType];
+	NSView *docView = [[[self.OutputView mainFrame] frameView] documentView];
+	NSRect docRect = docView.bounds;
+	docRect.size.height += 15;
+	[docView writePDFInsideRect:docRect toPasteboard:pasteBoard];
 	[pasteBoard setData:rtf forType:NSRTFPboardType];	
-	[pasteBoard setString:self.htmlContent forType:NSHTMLPboardType];
+	[pasteBoard setString:self.htmlContent forType:NSHTMLPboardType];	
+	[pasteBoard setString:[self.markdownContent string] forType:NSStringPboardType];
 }
 
+- (IBAction)exportStyledDoc:(id)sender;
+{
+	NSSavePanel *sp = [NSSavePanel savePanel];
+	[sp setNameFieldLabel:@"Export:"];
+	[sp setAccessoryView:exportAccessoryView];
+	
+	[sp setNameFieldStringValue:[self displayNameWithoutExtension]];
+	[sp beginWithCompletionHandler:^(NSInteger result) {
+		if (result == NSFileHandlingPanelCancelButton) {
+			return;
+		}
+		
+		NSURL *theURL = [sp URL];
+		
+		NSString *extension = [theURL pathExtension];
+		
+		TMDExportFormat format = (TMDExportFormat)[[(TMDExportAccessoryView *)[sp accessoryView] formatSelectionPopupButton] selectedTag];
+		
+		NSData *fileData;
+		
+		switch (format) {
+				
+			case kTMDExportFormatPDF:
+				{
+					NSView *docView = [[[self.OutputView mainFrame] frameView] documentView];
+					NSRect docRect = docView.bounds;
+					docRect.size.height += 15;
+					fileData = [docView dataWithPDFInsideRect:docRect];
+					if (![extension isEqualToString:@"pdf"]) {
+						theURL = [theURL URLByAppendingPathExtension:@"pdf"];
+					}
+					
+				}
+				break;
+				
+			case kTMDExportFormatHTML:
+				fileData = [self.htmlContent dataUsingEncoding:NSUTF8StringEncoding];
+				if (![extension isEqualToString:@"htm"] && ![extension isEqualToString:@"html"]) {
+					theURL = [theURL URLByAppendingPathExtension:@"html"];
+				}
+				break;
+				
+			case kTMDExportFormatRTF:
+				{
+					NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:[self.htmlContent dataUsingEncoding:NSUTF8StringEncoding] 
+																				   baseURL:[[self fileURL] baseURL] 
+																		documentAttributes:NULL];
+					fileData = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
+					if (![extension isEqualToString:@"rtf"]) {
+						theURL = [theURL URLByAppendingPathExtension:@"rtf"];
+					}
+				}
+				break;
+				
+			case kTMDExportFormatInvalid:
+			default:
+				NSAssert(NO, @"Invalid export format: %d", format);
+				break;
+		}
+		
+		[fileData writeToURL:theURL atomically:NO];
+	}];
+}
+
+- (IBAction)printDocument:(id)sender
+{
+	NSPrintInfo *printInfo = [NSPrintInfo sharedPrintInfo]; 
+	NSPrintOperation *printOperation; 
+	NSView *webView = [[[self.OutputView mainFrame] frameView] documentView]; 
+	[printInfo setTopMargin:15.0]; 
+	[printInfo setLeftMargin:10.0]; 
+	[printInfo setHorizontallyCentered:NO]; 
+	[printInfo setVerticallyCentered:NO]; 
+	printOperation = [NSPrintOperation printOperationWithView:webView printInfo:printInfo]; 
+	[printOperation runOperation];
+}
 
 #pragma mark -
 #pragma mark WebPolicyDelegate methods
@@ -151,6 +236,14 @@
 			
 #pragma mark -
 #pragma mark private methods
+
+- (NSString *)displayNameWithoutExtension;
+{
+	NSMutableArray *components = [[self.displayName componentsSeparatedByString:@"."] mutableCopy];
+	if ([components count] > 1)
+		[components removeLastObject];
+	return [components componentsJoinedByString:@"."];
+}
 
 - (void)convertMarkdownToWebView;
 {
@@ -182,6 +275,18 @@
 	data = [outFile readDataToEndOfFile];
 	
 	NSMutableString *htmlString = [NSMutableString string];
+
+	// prepend html header
+	[htmlString appendFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
+	"\"http://www.w3.org/TR/html4/strict.dtd\">"
+	"<html lang=\"en\">"
+	"<head>"
+	"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"
+	"<title>%@</title>"
+	"</head>"
+	"<body>",
+	 self.displayNameWithoutExtension];
+	
 	// add css to html
 	if ([self.themesDictionaryController selectionIndex] != NSNotFound)
 	{
@@ -189,7 +294,11 @@
 		[htmlString appendString:[NSString stringWithFormat:@"<link rel=\"stylesheet\" href=\"%@\">", pathToCSS]];
 	}
 	
+	// add markdown html
 	[htmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
+	
+	// add html footer
+	[htmlString appendString:@"</body>\n</html>"];
 	
 	self.htmlContent = htmlString;
 	

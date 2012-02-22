@@ -21,6 +21,7 @@
 		A481225714F15C3B00675F97 /* ThoMarkdownIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A481225614F15C3B00675F97 /* ThoMarkdownIcon.icns */; };
 		A4923F7714F2BB5E00AEC2E1 /* TMDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4923F7614F2BB5E00AEC2E1 /* TMDStatusBarView.m */; };
 		A4923F7B14F2BE7000AEC2E1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4923F7A14F2BE7000AEC2E1 /* QuartzCore.framework */; };
+		A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		A4923F7514F2BB5E00AEC2E1 /* TMDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDStatusBarView.h; sourceTree = "<group>"; };
 		A4923F7614F2BB5E00AEC2E1 /* TMDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDStatusBarView.m; sourceTree = "<group>"; };
 		A4923F7A14F2BE7000AEC2E1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A4923F8A14F56ED300AEC2E1 /* TMDExportAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDExportAccessoryView.h; sourceTree = "<group>"; };
+		A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDExportAccessoryView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 				A4923F7614F2BB5E00AEC2E1 /* TMDStatusBarView.m */,
 				72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */,
 				72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */,
+				A4923F8A14F56ED300AEC2E1 /* TMDExportAccessoryView.h */,
+				A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */,
 				A40D972F14F1238C002DF7FD /* MainMenu.xib */,
 				A40D971E14F1238C002DF7FD /* Supporting Files */,
 			);
@@ -203,6 +208,7 @@
 				A40D972B14F1238C002DF7FD /* TMDDocument.m in Sources */,
 				A4923F7714F2BB5E00AEC2E1 /* TMDStatusBarView.m in Sources */,
 				72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */,
+				A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
