@@ -221,18 +221,67 @@
 	NSTextStorage *textStorage = self.MarkdownTextView.layoutManager.textStorage;
 	NSRange found, area;
 	NSString *string = [textStorage string];
-	NSMutableDictionary *attr = [[NSMutableDictionary alloc] init];
 	NSLayoutManager *lm = self.MarkdownTextView.layoutManager;
 	NSUInteger length = [string length];
 	
-	[attr setObject: [NSColor blueColor]
+	NSMutableDictionary *h1Attr = [[NSMutableDictionary alloc] init];
+	[h1Attr setObject: [NSColor blueColor]
 			 forKey: NSForegroundColorAttributeName];
+	NSDictionary *h2Attr = [NSDictionary dictionaryWithObject:[NSColor purpleColor] forKey:NSForegroundColorAttributeName];
+	NSDictionary *h3Attr = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
+	
 	
 	area.location = 0;
 	area.length = length;
 
 	// first, strip all attrs
 	[lm removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:area];
+	
+	NSError *error;
+	NSRegularExpression *h1 = [NSRegularExpression regularExpressionWithPattern:@"[^#]#[^#]+?$" 
+																		options:NSRegularExpressionAnchorsMatchLines  
+																		  error:&error];
+	NSRegularExpression *h2 = [NSRegularExpression regularExpressionWithPattern:@"[^#]##[^#]+?$" 
+																		options:NSRegularExpressionAnchorsMatchLines  
+																		  error:&error];
+	NSRegularExpression *h3 = [NSRegularExpression regularExpressionWithPattern:@"[^#]###[^#]+?$" 
+																		options:NSRegularExpressionAnchorsMatchLines  
+																		  error:&error];
+	
+	[h1 enumerateMatchesInString:string 
+						 options:0 
+						   range:NSMakeRange(0, [string length]) 
+					  usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+						  NSRange range =[result range];
+						  if (found.location != NSNotFound)
+						  {
+							  [lm addTemporaryAttributes:h1Attr forCharacterRange:range];
+						  }
+					  }];
+	
+	[h2 enumerateMatchesInString:string 
+						 options:0 
+						   range:NSMakeRange(0, [string length]) 
+					  usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+						  NSRange range =[result range];
+						  if (found.location != NSNotFound)
+						  {
+							  [lm addTemporaryAttributes:h2Attr forCharacterRange:range];
+						  }
+					  }];
+	
+	[h3 enumerateMatchesInString:string 
+						 options:0 
+						   range:NSMakeRange(0, [string length]) 
+					  usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+						  NSRange range =[result range];
+						  if (found.location != NSNotFound)
+						  {
+							  [lm addTemporaryAttributes:h3Attr forCharacterRange:range];
+						  }
+					  }];
+	
+	
 	
 	while (area.length)
 	{
@@ -241,7 +290,7 @@
 								range: area];
 		
 		if (found.location == NSNotFound) break;
-		[lm addTemporaryAttributes: attr forCharacterRange: found];
+		[lm addTemporaryAttributes: h1Attr forCharacterRange: found];
 		
 		area.location = NSMaxRange(found);
 		area.length = length - area.location;
