@@ -152,7 +152,8 @@
 	[sp setAccessoryView:exportAccessoryView];
 	
 	[sp setNameFieldStringValue:[self displayNameWithoutExtension]];
-	[sp beginWithCompletionHandler:^(NSInteger result) {
+	NSWindow *docWindow = [(NSWindowController *)[self.windowControllers objectAtIndex:0] window];
+	[sp beginSheetModalForWindow:docWindow  completionHandler:^(NSInteger result) {
 		if (result == NSFileHandlingPanelCancelButton) {
 			return;
 		}
