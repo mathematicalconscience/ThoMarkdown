@@ -278,27 +278,36 @@
 
 	// prepend html header
 	[htmlString appendFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
-	"\"http://www.w3.org/TR/html4/strict.dtd\">"
-	"<html lang=\"en\">"
-	"<head>"
-	"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"
-	"<title>%@</title>"
-	"</head>"
-	"<body>",
+	"\"http://www.w3.org/TR/html4/strict.dtd\">\n"
+	"<html lang=\"en\">\n"
+	"<head>\n"
+	"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n"
+	"<title>%@</title>\n"
+	"</head>\n"
+	"<body>\n",
 	 self.displayNameWithoutExtension];
+	
+	// prepend css style opening tag
+	[htmlString appendString:@"<style media=\"screen\" type=\"text/css\">\n"];
 	
 	// add css to html
 	if ([self.themesDictionaryController selectionIndex] != NSNotFound)
 	{
-		NSString *pathToCSS = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
-		[htmlString appendString:[NSString stringWithFormat:@"<link rel=\"stylesheet\" href=\"%@\">", pathToCSS]];
+		NSError *error;
+		NSURL *pathToCSS = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
+		//[htmlString appendString:[NSString stringWithFormat:@"<link rel=\"stylesheet\" href=\"%@\">", pathToCSS]];
+		NSString *css = [NSString stringWithContentsOfURL:pathToCSS encoding:NSUTF8StringEncoding error:&error];
+		[htmlString appendString:css];
 	}
+	
+	// add css style closing tag
+	[htmlString appendString:@"</style>\n"];
 	
 	// add markdown html
 	[htmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
 	
 	// add html footer
-	[htmlString appendString:@"</body>\n</html>"];
+	[htmlString appendString:@"</body>\n</html>\n"];
 	
 	self.htmlContent = htmlString;
 	

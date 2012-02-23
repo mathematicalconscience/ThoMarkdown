@@ -68,7 +68,7 @@
 																						withString:@""
 																						options:(NSBackwardsSearch | NSAnchoredSearch)
 																						 range:NSMakeRange(0, [fileURL lastPathComponent].length)]; 
-			[newThemes setObject:[fileURL path] forKey:name]; 
+			[newThemes setObject:fileURL forKey:name]; 
 		}
 	}
 	
