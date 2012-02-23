@@ -30,9 +30,18 @@
 {
     // Drawing code here.
 
-	NSGradient *g = [[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor grayColor]];
+	NSGradient *g = [[NSGradient alloc] initWithStartingColor:[NSColor whiteColor] endingColor:[NSColor windowFrameColor]];
 	
-	[g drawInRect:self.bounds angle:90.0];
+	[g drawInRect:self.bounds angle:270.0];
+	
+	[[NSColor darkGrayColor] setStroke];
+	
+	NSBezierPath *topLine = [NSBezierPath bezierPath];
+
+	[topLine moveToPoint:NSMakePoint(0, self.bounds.size.height)];
+	[topLine lineToPoint:NSMakePoint(self.bounds.size.width, self.bounds.size.height)];
+	
+	[topLine stroke];
 }
 
 @end
