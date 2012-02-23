@@ -106,6 +106,9 @@
     return YES;
 }
 
+#pragma mark -
+#pragma mark KVO
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self.themesDictionaryController) {

@@ -1,9 +1,11 @@
 # Known Issues
-## for Export / Copy
+
+This document contains bugs and known issues for _ThoMarkdown_.
 
 ---
 
-###Export
+## Export / Copy
+### Export
 
 * PDF
 	* Visually OK
@@ -18,7 +20,6 @@
 	* __Quote indents missing__
 	* __horizontal lines are missing__
 	* Links work
----
 
 ###Copy
 
@@ -41,4 +42,6 @@
 
 * Markdown plaintext representation (test: _TextMate.app_)
 	* Works as intended
+
+## Other Bugs
 
