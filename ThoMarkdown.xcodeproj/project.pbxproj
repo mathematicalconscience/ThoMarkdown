@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */; };
 		72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */; };
 		A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D971714F1238C002DF7FD /* Cocoa.framework */; };
 		A40D972214F1238C002DF7FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A40D972014F1238C002DF7FD /* InfoPlist.strings */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarizedMarkdown.css; sourceTree = "<group>"; };
 		72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDThemeManager.h; sourceTree = "<group>"; };
 		72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDThemeManager.m; sourceTree = "<group>"; };
 		A40D971314F1238C002DF7FD /* ThoMarkdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThoMarkdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 				A40D972314F1238C002DF7FD /* main.m */,
 				A40D972514F1238C002DF7FD /* ThoMarkdown-Prefix.pch */,
 				A40D972614F1238C002DF7FD /* Credits.rtf */,
+				72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */,
 				A481225214F14EA000675F97 /* style.css */,
 			);
 			name = "Supporting Files";
@@ -194,6 +197,7 @@
 				A481224A14F144F900675F97 /* multimarkdown in Resources */,
 				A481225514F14EA000675F97 /* style.css in Resources */,
 				A481225714F15C3B00675F97 /* ThoMarkdownIcon.icns in Resources */,
+				72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
