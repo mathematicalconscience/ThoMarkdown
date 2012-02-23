@@ -2,6 +2,9 @@
 
 ---
 
+### UI
+* Synchronize view port of the web view to match currently edited location in the editor
+
 ###Export
 
 * Export to ePub
