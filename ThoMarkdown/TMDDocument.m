@@ -15,6 +15,7 @@
 - (void)convertMarkdownToWebView;
 - (void)updateSyntaxHighlighting; 
 - (NSString *)displayNameWithoutExtension;
+- (void)syncScrollViews;
 @end
 
 @implementation TMDDocument
@@ -62,6 +63,7 @@
 	[self.MarkdownTextView setFont:fixedWidthFont];
 	[self convertMarkdownToWebView];
 	[self.OutputView setPolicyDelegate:self];
+	[self.OutputView setFrameLoadDelegate:self];
 	[self.themesDictionaryController addObserver:self forKeyPath:@"selectionIndex" options:NSKeyValueObservingOptionNew context:NULL];	
 }
 
@@ -224,7 +226,7 @@
 }
 
 #pragma mark -
-#pragma mark WebPolicyDelegate methods
+#pragma mark WebView related Delegate methods
 //open all links in the default browser, not in the web view which is used for rendering the converted markdown doc
 -(void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener; 
 {
@@ -237,9 +239,38 @@
 	
 	[listener use];
 }
+
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+	if (YES) 
+	{
+		[self syncScrollViews];
+	}
+}
 			
 #pragma mark -
 #pragma mark private methods
+
+- (void)syncScrollViews;
+{
+	NSScrollView *webScrollView = [[[[self.OutputView mainFrame] frameView] documentView] enclosingScrollView];
+	NSScrollView *mdScrollView = [self.MarkdownTextView enclosingScrollView];
+	
+	// get scroller position
+	NSScroller *vScroller = [mdScrollView verticalScroller];
+	float relPos = [vScroller floatValue];
+	
+	// TODO: this is a simple hack to get the approximate relative position in the text
+	// what we should do is find the rect of the position in the webView corresponding to
+	// the current caret pos and scroll to that position!
+	
+	NSRect fullTarget = [[[self.OutputView mainFrame] frameView] documentView].bounds;
+	
+	NSRect newTarget = fullTarget;
+	newTarget.origin.y = fullTarget.size.height * relPos - webScrollView.bounds.size.height * 0.5;
+	newTarget.size.height = webScrollView.bounds.size.height;
+	
+	[[webScrollView documentView] scrollRectToVisible:newTarget];
+}
 
 - (NSString *)displayNameWithoutExtension;
 {
