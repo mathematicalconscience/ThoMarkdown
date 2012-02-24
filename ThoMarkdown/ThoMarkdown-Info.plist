@@ -10,11 +10,13 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>markdown</string>
+				<string>mdown</string>
+				<string>md</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>ThoMarkdownDoc</string>
 			<key>CFBundleTypeName</key>
-			<string>DocumentType</string>
+			<string>markdown</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
 				<string>????</string>
