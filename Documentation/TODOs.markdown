@@ -4,6 +4,9 @@
 
 ### UI
 * Synchronize view port of the web view to match currently edited location in the editor
+	* prevent web view from becoming first responder (it catches spaces!)
+	* check special cases (backslash, typing inside #### etc…)
+	* strip all specials from the HTML prior to exporting
 
 ###Export
 
@@ -18,4 +21,3 @@
 * Last line in textview looks truncated---maybe need an extra line?
 
 * CSS selection should be saved (per doc / per user pref?)
-

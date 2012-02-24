@@ -16,12 +16,15 @@
 - (void)updateSyntaxHighlighting; 
 - (NSString *)displayNameWithoutExtension;
 - (void)syncScrollViews;
+@property (assign) NSRange caretPos;
 @end
 
 @implementation TMDDocument
 {
 	NSAttributedString *markdownContent;
 	NSString *htmlContent;
+	
+	NSRange caretPos;
 }
 
 @synthesize exportAccessoryView;
@@ -30,6 +33,7 @@
 @synthesize markdownContent, htmlContent;
 @synthesize wordCount;
 @synthesize themesDictionaryController;
+@synthesize caretPos;
 
 - (id)init
 {
@@ -246,30 +250,27 @@
 		[self syncScrollViews];
 	}
 }
+
+/*
+- (NSResponder *)webViewFirstResponder:(WebView *)sender
+{
+	return self.MarkdownTextView;
+}
+
+- (void)webView:(WebView *)sender makeFirstResponder:(NSResponder *)responder
+{
+	NSLog(@"d;akjbeg");
+}
+ */
 			
 #pragma mark -
 #pragma mark private methods
 
 - (void)syncScrollViews;
 {
-	NSScrollView *webScrollView = [[[[self.OutputView mainFrame] frameView] documentView] enclosingScrollView];
-	NSScrollView *mdScrollView = [self.MarkdownTextView enclosingScrollView];
-	
-	// get scroller position
-	NSScroller *vScroller = [mdScrollView verticalScroller];
-	float relPos = [vScroller floatValue];
-	
-	// TODO: this is a simple hack to get the approximate relative position in the text
-	// what we should do is find the rect of the position in the webView corresponding to
-	// the current caret pos and scroll to that position!
-	
-	NSRect fullTarget = [[[self.OutputView mainFrame] frameView] documentView].bounds;
-	
-	NSRect newTarget = fullTarget;
-	newTarget.origin.y = fullTarget.size.height * relPos - webScrollView.bounds.size.height * 0.5;
-	newTarget.size.height = webScrollView.bounds.size.height;
-	
-	[[webScrollView documentView] scrollRectToVisible:newTarget];
+	WebScriptObject *wso = [self.OutputView windowScriptObject];
+	//[wso evaluateWebScript:@"window.location.hash = \"caretPos\";"];
+	[wso evaluateWebScript:@"scrollToAnchor()"];
 }
 
 - (NSString *)displayNameWithoutExtension;
@@ -302,7 +303,15 @@
 	
 	[mmd launch];
 	
-	[inFile writeData:[self dataOfType:@"markdown" error:NULL]];
+	// inject anchor at caret pos and serialize to NSData
+	
+	NSData *inData;
+    self.markdownContent = [self.MarkdownTextView textStorage];
+	NSMutableString *plainString = [[self.markdownContent string] mutableCopy];
+	[plainString insertString:@"<a name=\"caretPos\">❮</a>" atIndex:self.caretPos.location];
+	inData = [plainString dataUsingEncoding:NSUTF8StringEncoding];
+	
+	[inFile writeData:inData];
 	[inFile closeFile];
 	
 	
@@ -321,6 +330,12 @@
 	"</head>\n"
 	"<body>\n",
 	 self.displayNameWithoutExtension];
+
+	// prepend scrolling java script
+	NSURL *jsURL = [[NSBundle mainBundle] URLForResource:@"scrolling" withExtension:@"js"];
+	NSString *jsPath = [jsURL path];
+	[htmlString appendFormat:@"<script type=\"text/javascript\" src=\"%@\"></script>", jsPath];
+
 	
 	// prepend css style opening tag
 	[htmlString appendString:@"<style media=\"screen\" type=\"text/css\">\n"];
@@ -344,9 +359,12 @@
 	// add html footer
 	[htmlString appendString:@"</body>\n</html>\n"];
 	
-	self.htmlContent = htmlString;
-	
 	[[self.OutputView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
+	
+	// TODO: strip anchor tag before storing html (it's used for export)
+	// TODO: strip java script reference before storing html (it's used for export)
+	
+	self.htmlContent = htmlString;
 }
 
 #pragma mark -
@@ -354,6 +372,8 @@
 							  
 - (void)textDidChange:(NSNotification *)notification
 {
+	self.caretPos = [self.MarkdownTextView selectedRange];
+	
 	self.markdownContent = [self.MarkdownTextView textStorage];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	
