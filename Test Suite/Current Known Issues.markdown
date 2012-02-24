@@ -45,3 +45,7 @@ This document contains bugs and known issues for _ThoMarkdown_.
 
 ## Other Bugs
 
+###Scrolling and live updates
+* inside of `<code>` spans, the scrolling does not for, because the anchor element is escaped (and appears in the text) 
+* space hack breaks if you first edit somewhere up in the text and then click at the end and add a space. 
+* insertion mark does not move when navigating (only when changing the text)

@@ -4,9 +4,9 @@
 
 ### UI
 * Synchronize view port of the web view to match currently edited location in the editor
-	* prevent web view from becoming first responder (it catches spaces!)
-	* check special cases (backslash, typing inside #### etc…)
-	* strip all specials from the HTML prior to exporting
+* check special cases (backslash, typing inside #### etc…)
+* strip all specials from the HTML prior to exporting
+* inside of `<code>` spans, the scrolling does not for, because the anchor element is escaped (and appears in the text) 
 
 ###Export
 

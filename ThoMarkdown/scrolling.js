@@ -47,3 +47,20 @@ function scrollToAnchor()
 	
 	window.scrollTo(pos.x - window.innerWidth / 2, pos.y - window.innerHeight / 2); 
 }
+
+function addSpaceInCaretAnchor()
+{
+	/*TODO: Add space char left of the "caretPos" anchor*/
+	elemRef = "JavascriptStinkt";
+	anchorTags = window.document.getElementsByTagName( 'a' );
+	for (i = 0; i<anchorTags.length;i++)
+	{
+		if (anchorTags[i].name == "caretPos")
+			elemRef = anchorTags[i];
+	}
+	
+	if (elemRef == "JavascriptStinkt")
+		return;
+	
+	elemRef.innerHTML = ' ' + elemRef.innerHTML;
+}

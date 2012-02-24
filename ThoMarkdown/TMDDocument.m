@@ -16,6 +16,7 @@
 - (void)updateSyntaxHighlighting; 
 - (NSString *)displayNameWithoutExtension;
 - (void)syncScrollViews;
+- (void)cheatSpaceCharIntoWebView;
 @property (assign) NSRange caretPos;
 @end
 
@@ -273,6 +274,12 @@
 	[wso evaluateWebScript:@"scrollToAnchor()"];
 }
 
+- (void)cheatSpaceCharIntoWebView;
+{
+	WebScriptObject *wso = [self.OutputView windowScriptObject];
+	[wso evaluateWebScript:@"addSpaceInCaretAnchor()"];
+}
+
 - (NSString *)displayNameWithoutExtension;
 {
 	NSMutableArray *components = [[self.displayName componentsSeparatedByString:@"."] mutableCopy];
@@ -372,12 +379,29 @@
 							  
 - (void)textDidChange:(NSNotification *)notification
 {
-	self.caretPos = [self.MarkdownTextView selectedRange];
-	
 	self.markdownContent = [self.MarkdownTextView textStorage];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
+
 	
-	[self convertMarkdownToWebView];
+	BOOL spaceEntered = NO;
+	// check if caret moved to the right by one
+	NSRange newCaretPos = [self.MarkdownTextView selectedRange];
+	if (newCaretPos.location == self.caretPos.location +1) {
+		// check if the new char is a space
+		NSRange lastChar = newCaretPos;
+		lastChar.location -= 1;
+		lastChar.length = 1;
+		NSString *lastString = [[self.markdownContent string] substringWithRange:lastChar];
+		spaceEntered = [lastString isEqualToString:@" "];
+	}
+	self.caretPos = newCaretPos;
+	
+	// if a space was inserted, DO NOT RELOAD THE WEB VIEW
+	// TODO: Cheat a space into the view via JS instead
+	if (!spaceEntered)
+		[self convertMarkdownToWebView];
+	else
+		[self cheatSpaceCharIntoWebView];
 }
 
 #pragma mark -
