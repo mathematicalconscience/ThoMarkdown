@@ -63,6 +63,7 @@
 	[self.MarkdownTextView setUsesFontPanel:NO];
 	[[self.MarkdownTextView textStorage] setDelegate:self];
 	[[self.MarkdownTextView textStorage] setAttributedString:self.markdownContent];
+	[self.MarkdownTextView setDelegate:self];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	NSFont *fixedWidthFont = [NSFont userFixedPitchFontOfSize:12.0];
 	[self.MarkdownTextView setFont:fixedWidthFont];
@@ -251,18 +252,6 @@
 		[self syncScrollViews];
 	}
 }
-
-/*
-- (NSResponder *)webViewFirstResponder:(WebView *)sender
-{
-	return self.MarkdownTextView;
-}
-
-- (void)webView:(WebView *)sender makeFirstResponder:(NSResponder *)responder
-{
-	NSLog(@"d;akjbeg");
-}
- */
 			
 #pragma mark -
 #pragma mark private methods
@@ -315,7 +304,7 @@
 	NSData *inData;
     self.markdownContent = [self.MarkdownTextView textStorage];
 	NSMutableString *plainString = [[self.markdownContent string] mutableCopy];
-	[plainString insertString:@"<a name=\"caretPos\">❮</a>" atIndex:self.caretPos.location];
+	[plainString insertString:@"<a name=\"caretPos\" class=\"cursor\">❮</a>" atIndex:self.caretPos.location];
 	inData = [plainString dataUsingEncoding:NSUTF8StringEncoding];
 	
 	[inFile writeData:inData];
@@ -338,9 +327,21 @@
 	"<body>\n",
 	 self.displayNameWithoutExtension];
 
+	
+	// JavaScript stuff
+	NSURL *jsURL;
+	NSString *jsPath;
+	
+	// TODO: remove
+	// prepend jQuery lib
+	[htmlString appendFormat:@"<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js\"></script>"];
+	jsURL = [[NSBundle mainBundle] URLForResource:@"cursorBlink" withExtension:@"js"];
+	jsPath = [jsURL path];
+	[htmlString appendFormat:@"<script type=\"text/javascript\" src=\"%@\"></script>", jsPath];
+	
 	// prepend scrolling java script
-	NSURL *jsURL = [[NSBundle mainBundle] URLForResource:@"scrolling" withExtension:@"js"];
-	NSString *jsPath = [jsURL path];
+	jsURL = [[NSBundle mainBundle] URLForResource:@"scrolling" withExtension:@"js"];
+	jsPath = [jsURL path];
 	[htmlString appendFormat:@"<script type=\"text/javascript\" src=\"%@\"></script>", jsPath];
 
 	
@@ -372,6 +373,19 @@
 	// TODO: strip java script reference before storing html (it's used for export)
 	
 	self.htmlContent = htmlString;
+}
+
+
+#pragma mark -
+#pragma mark NSTextDelegate
+
+- (void)textViewDidChangeSelection:(NSNotification *)notification
+{
+	// TODO: it is actually too costly to make the markdown every time
+	// we just do it here to change the cursor position
+	// need to find a way to just move the caretPos anchor tag around the html
+	self.caretPos = [self.MarkdownTextView selectedRange];
+	[self convertMarkdownToWebView];
 }
 
 #pragma mark -

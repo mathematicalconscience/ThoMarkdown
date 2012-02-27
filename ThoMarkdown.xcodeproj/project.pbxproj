@@ -18,6 +18,8 @@
 		A40D973114F1238C002DF7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972F14F1238C002DF7FD /* MainMenu.xib */; };
 		A41DFF6E14F79C7B008E6FB7 /* scrolling.js in Sources */ = {isa = PBXBuildFile; fileRef = A41DFF6D14F79C7B008E6FB7 /* scrolling.js */; };
 		A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */ = {isa = PBXBuildFile; fileRef = A41DFF6D14F79C7B008E6FB7 /* scrolling.js */; };
+		A42FE94214FBA0A0002CDF78 /* cursorBlink.js in Sources */ = {isa = PBXBuildFile; fileRef = A42FE94114FBA0A0002CDF78 /* cursorBlink.js */; };
+		A42FE94414FBA291002CDF78 /* cursorBlink.js in Resources */ = {isa = PBXBuildFile; fileRef = A42FE94114FBA0A0002CDF78 /* cursorBlink.js */; };
 		A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */ = {isa = PBXBuildFile; fileRef = A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */; };
 		A481224714F13F5B00675F97 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A481224614F13F5A00675F97 /* WebKit.framework */; };
 		A481224A14F144F900675F97 /* multimarkdown in Resources */ = {isa = PBXBuildFile; fileRef = A481224914F144F900675F97 /* multimarkdown */; };
@@ -47,6 +49,7 @@
 		A40D972D14F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TMDDocument.xib; sourceTree = "<group>"; };
 		A40D973014F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A41DFF6D14F79C7B008E6FB7 /* scrolling.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = scrolling.js; sourceTree = "<group>"; };
+		A42FE94114FBA0A0002CDF78 /* cursorBlink.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cursorBlink.js; sourceTree = "<group>"; };
 		A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ThoMarkdownDoc.icns; sourceTree = "<group>"; };
 		A481224614F13F5A00675F97 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A481224914F144F900675F97 /* multimarkdown */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = multimarkdown; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 				72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */,
 				A481225214F14EA000675F97 /* style.css */,
 				A41DFF6D14F79C7B008E6FB7 /* scrolling.js */,
+				A42FE94114FBA0A0002CDF78 /* cursorBlink.js */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -204,6 +208,7 @@
 				A481224A14F144F900675F97 /* multimarkdown in Resources */,
 				A481225514F14EA000675F97 /* style.css in Resources */,
 				A481225714F15C3B00675F97 /* ThoMarkdownIcon.icns in Resources */,
+				A42FE94414FBA291002CDF78 /* cursorBlink.js in Resources */,
 				A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */,
 				72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */,
 				A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */,
@@ -223,6 +228,7 @@
 				72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */,
 				A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */,
 				A41DFF6E14F79C7B008E6FB7 /* scrolling.js in Sources */,
+				A42FE94214FBA0A0002CDF78 /* cursorBlink.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
