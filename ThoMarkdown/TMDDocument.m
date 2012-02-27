@@ -8,11 +8,13 @@
 
 #import "TMDDocument.h"
 #import "TMDExportAccessoryView.h"
+#import "TMDEpubExport.h"
 
 @interface TMDDocument ()
 @property (strong) NSAttributedString *markdownContent;
 @property (strong) NSString *htmlContent;
 - (void)convertMarkdownToWebView;
+- (NSString *)convertMarkdownToXHTML;
 - (void)updateSyntaxHighlighting; 
 - (NSString *)displayNameWithoutExtension;
 - (void)syncScrollViews;
@@ -160,8 +162,10 @@
 	
 	[sp setNameFieldStringValue:[self displayNameWithoutExtension]];
 	NSWindow *docWindow = [(NSWindowController *)[self.windowControllers objectAtIndex:0] window];
-	[sp beginSheetModalForWindow:docWindow  completionHandler:^(NSInteger result) {
-		if (result == NSFileHandlingPanelCancelButton) {
+	[sp beginSheetModalForWindow:docWindow completionHandler:^(NSInteger result) 
+	{
+		if (result == NSFileHandlingPanelCancelButton) 
+		{
 			return;
 		}
 		
@@ -181,18 +185,23 @@
 					NSRect docRect = docView.bounds;
 					docRect.size.height += 15;
 					fileData = [docView dataWithPDFInsideRect:docRect];
-					if (![extension isEqualToString:@"pdf"]) {
+					if (![extension isEqualToString:@"pdf"])
+					{
 						theURL = [theURL URLByAppendingPathExtension:@"pdf"];
 					}
 					
+					[fileData writeToURL:theURL atomically:NO];
 				}
 				break;
 				
 			case kTMDExportFormatHTML:
 				fileData = [self.htmlContent dataUsingEncoding:NSUTF8StringEncoding];
-				if (![extension isEqualToString:@"htm"] && ![extension isEqualToString:@"html"]) {
+				if (![extension isEqualToString:@"htm"] && ![extension isEqualToString:@"html"])
+				{
 					theURL = [theURL URLByAppendingPathExtension:@"html"];
 				}
+				[fileData writeToURL:theURL atomically:NO];
+
 				break;
 				
 			case kTMDExportFormatRTF:
@@ -201,19 +210,38 @@
 																				   baseURL:[[self fileURL] baseURL] 
 																		documentAttributes:NULL];
 					fileData = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
-					if (![extension isEqualToString:@"rtf"]) {
+					if (![extension isEqualToString:@"rtf"])
+					{
 						theURL = [theURL URLByAppendingPathExtension:@"rtf"];
 					}
+					
+					[fileData writeToURL:theURL atomically:NO];
 				}
 				break;
+				
+			case kTMDExportFormatEpub:
+				{
+					if (![extension isEqualToString:@"epub"]) 
+					{
+						theURL = [theURL URLByAppendingPathExtension:@"epub"];
+					}
+					NSString* bookAuthor	= NSFullUserName();
+					NSString* bookTitle	= [self displayNameWithoutExtension];
+					
+					[TMDEpubExport exportChapter:[self convertMarkdownToXHTML]
+										  toPath:theURL
+										  author:bookAuthor
+										   title:bookTitle];
+				}
+				break;
+
+				
 				
 			case kTMDExportFormatInvalid:
 			default:
 				NSAssert(NO, @"Invalid export format: %d", format);
 				break;
 		}
-		
-		[fileData writeToURL:theURL atomically:NO];
 	}];
 }
 
@@ -373,6 +401,61 @@
 	
 	self.htmlContent = htmlString;
 }
+
+
+- (NSString *) convertMarkdownToXHTML
+{
+	NSTask *mmd = [[NSTask alloc] init];
+	NSString *launchPath = [NSString stringWithFormat:@"%@/%@", 
+							[[NSBundle mainBundle] resourcePath], @"multimarkdown"];
+	[mmd setLaunchPath:launchPath];
+	
+	NSPipe *outPipe;
+	outPipe = [NSPipe pipe];
+	[mmd setStandardOutput: outPipe];
+	NSPipe *inPipe;
+	inPipe = [NSPipe pipe];
+	[mmd setStandardInput:inPipe];
+	
+	NSFileHandle *inFile;
+	inFile = [inPipe fileHandleForWriting];
+	
+	NSFileHandle *outFile;
+	outFile = [outPipe fileHandleForReading];
+	
+	
+	[mmd launch];
+	
+	// pass current text view contents
+	self.markdownContent = [self.MarkdownTextView textStorage];
+	NSData *inData = [[self.markdownContent string] dataUsingEncoding:NSUTF8StringEncoding];
+	
+	[inFile writeData:inData];
+	[inFile closeFile];
+	NSData *data = [outFile readDataToEndOfFile];
+
+	
+	// prepend xhtml header and opening body tag
+	NSMutableString *xhtmlString = [NSMutableString string];
+	[xhtmlString appendString:
+	 @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+	 "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n"
+	 "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
+	 "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+	 "<head>\n"
+	 "<title></title>\n"
+	 "</head>\n"	
+	 "<body>\n"];
+
+	// add markdown html
+	[xhtmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
+	
+	// add html footer
+	[xhtmlString appendString:@"</body>\n</html>\n"];
+	
+	return xhtmlString;
+}
+
 
 #pragma mark -
 #pragma mark NSTextDelegate

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F5795F914FB266B00D0B346 /* TMDEpubExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F5795F814FB266B00D0B346 /* TMDEpubExport.m */; };
 		72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */; };
 		72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */; };
 		A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D971714F1238C002DF7FD /* Cocoa.framework */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F5795F714FB266B00D0B346 /* TMDEpubExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDEpubExport.h; sourceTree = "<group>"; };
+		3F5795F814FB266B00D0B346 /* TMDEpubExport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDEpubExport.m; sourceTree = "<group>"; };
 		72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarizedMarkdown.css; sourceTree = "<group>"; };
 		72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDThemeManager.h; sourceTree = "<group>"; };
 		72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDThemeManager.m; sourceTree = "<group>"; };
@@ -73,6 +76,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F5795F514FB222C00D0B346 /* epub */ = {
+			isa = PBXGroup;
+			children = (
+				3F5795F714FB266B00D0B346 /* TMDEpubExport.h */,
+				3F5795F814FB266B00D0B346 /* TMDEpubExport.m */,
+			);
+			name = epub;
+			sourceTree = "<group>";
+		};
 		A40D970814F1238C002DF7FD = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +128,7 @@
 		A40D971D14F1238C002DF7FD /* ThoMarkdown */ = {
 			isa = PBXGroup;
 			children = (
+				3F5795F514FB222C00D0B346 /* epub */,
 				A40D972914F1238C002DF7FD /* TMDDocument.h */,
 				A40D972A14F1238C002DF7FD /* TMDDocument.m */,
 				A40D972C14F1238C002DF7FD /* TMDDocument.xib */,
@@ -223,6 +236,7 @@
 				72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */,
 				A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */,
 				A41DFF6E14F79C7B008E6FB7 /* scrolling.js in Sources */,
+				3F5795F914FB266B00D0B346 /* TMDEpubExport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
