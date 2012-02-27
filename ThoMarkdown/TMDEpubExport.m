@@ -180,9 +180,10 @@
 	NSTask *zipTask2			= [[NSTask alloc] init];
 	[zipTask2 setLaunchPath:@"/usr/bin/zip"];
 	[zipTask2 setCurrentDirectoryPath:[containerDirURL path]];
-	[zipTask2 setArguments:[NSArray arrayWithObjects:@"-rDX9", @"book", @"*", @"-x", @"mimetype", nil]];
+	[zipTask2 setArguments:[NSArray arrayWithObjects:@"-RDX9", @"book", @"*xml", @"*xhtml", @"*opf", @"*jpg", @"*ncx", nil]];
 	
-	// this works in terminal "zip -rDX9 book * -x mimetype"
+	// this works in terminal, but not in code, dont knwo why...: "zip -rDX9 book * -x mimetype"
+	//	[zipTask2 setArguments:[NSArray arrayWithObjects:@"-vrDX9", @"book", @"*", @"-x", @"mimetype", nil]];
 	
 	[zipTask2 launch];
 	[zipTask2 waitUntilExit];	
@@ -194,14 +195,15 @@
 
 	// copy to export url
 	if (![[NSFileManager defaultManager] copyItemAtURL:[containerDirURL URLByAppendingPathComponent:@"book.zip"]
-												 toURL:[theURL URLByAppendingPathExtension:@"zip"]
+												 toURL:theURL
 												 error:&returnedError])
 	{
 		NSLog(@"%s %@", __PRETTY_FUNCTION__, returnedError);
 		return NO;
 	}
 	
-	// TODO: clean up temp dir (if we feel nice)
+	// clean up temp dir
+	[[NSFileManager defaultManager] removeItemAtURL:containerDirURL error:nil];
 	
 	return YES;
 }
