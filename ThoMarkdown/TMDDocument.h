@@ -11,7 +11,7 @@
 
 @interface TMDDocument : NSDocument <NSTextDelegate, NSTextStorageDelegate>
 @property (weak) IBOutlet NSView *exportAccessoryView;
-@property (unsafe_unretained) IBOutlet NSTextView *MarkdownTextView;
+@property (unsafe_unretained) IBOutlet NSTextView *MarkdownTextView;		// LEO: why unsafe_unretained?
 @property (weak) IBOutlet WebView *OutputView;
 @property (assign) NSUInteger wordCount;
 @property (weak) IBOutlet NSDictionaryController *themesDictionaryController;

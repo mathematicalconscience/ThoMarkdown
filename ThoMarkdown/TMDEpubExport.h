@@ -12,7 +12,7 @@
 @interface TMDEpubExport : NSObject
 // ===============================================================================================================
 
-+ (BOOL) exportChapter:(NSString *)chapterHtml toPath:(NSURL *)theURL author:(NSString *)bookAuthor title:(NSString *)bookTitle;
++ (BOOL) exportChapter:(NSString *)chapterXhtml toPath:(NSURL *)theURL author:(NSString *)bookAuthor title:(NSString *)bookTitle;
 
 @end
 

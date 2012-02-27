@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F5795F914FB266B00D0B346 /* TMDEpubExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F5795F814FB266B00D0B346 /* TMDEpubExport.m */; };
+		3F5795FB14FC13FC00D0B346 /* bookDefaultCover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F5795FA14FC13FC00D0B346 /* bookDefaultCover.jpg */; };
 		72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */; };
 		72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */; };
 		A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D971714F1238C002DF7FD /* Cocoa.framework */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		3F5795F714FB266B00D0B346 /* TMDEpubExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDEpubExport.h; sourceTree = "<group>"; };
 		3F5795F814FB266B00D0B346 /* TMDEpubExport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDEpubExport.m; sourceTree = "<group>"; };
+		3F5795FA14FC13FC00D0B346 /* bookDefaultCover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bookDefaultCover.jpg; sourceTree = "<group>"; };
 		72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarizedMarkdown.css; sourceTree = "<group>"; };
 		72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDThemeManager.h; sourceTree = "<group>"; };
 		72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDThemeManager.m; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		A40D971E14F1238C002DF7FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3F5795FA14FC13FC00D0B346 /* bookDefaultCover.jpg */,
 				A481224914F144F900675F97 /* multimarkdown */,
 				A40D971F14F1238C002DF7FD /* ThoMarkdown-Info.plist */,
 				A40D972014F1238C002DF7FD /* InfoPlist.strings */,
@@ -220,6 +223,7 @@
 				A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */,
 				72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */,
 				A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */,
+				3F5795FB14FC13FC00D0B346 /* bookDefaultCover.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
