@@ -10,7 +10,11 @@
 * allow anchors inside the document and links that jump to the anchors in both views
 	* best would be to just allow a "blind link target" with a simple syntax (e.g. just brackets) and a way to reference that target in the standard mdown link tag:
 	`This is some {interesting text} I would like to link to [here](interesting_text).`
+* Last line in textview looks truncated---maybe need an extra line?
 
+###Architexture
+* Seems like we need an offscreen WebView for all clipboard and export actions
+	* pdf creation breaks down as soon as JS is attached to the web view :(
 
 ###Export
 
@@ -20,8 +24,10 @@
 
 * Find a way to support pagination for PDFs or eBook formats
 
-
 * QuickLook for mdown
-* Last line in textview looks truncated---maybe need an extra line?
 
 * CSS selection should be saved (per doc / per user pref?)
+
+* do not inline the CSS for exports other than HTML!
+* supply correct usage tags for the CSS (not only "screen")
+
