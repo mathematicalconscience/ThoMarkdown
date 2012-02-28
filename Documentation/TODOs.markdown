@@ -12,9 +12,10 @@
 	`This is some {interesting text} I would like to link to [here](interesting_text).`
 * Last line in textview looks truncated---maybe need an extra line?
 
+* Space cheating does not work anymore because of the precedence of the selection changed delegate over the text changed one
+
 ###Architexture
-* Seems like we need an offscreen WebView for all clipboard and export actions
-	* pdf creation breaks down as soon as JS is attached to the web view :(
+* wait for offscreen web view to load
 
 ###Export
 
