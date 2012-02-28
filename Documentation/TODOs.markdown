@@ -7,6 +7,10 @@
 * check special cases (backslash, typing inside #### etc…)
 * strip all specials from the HTML prior to exporting
 * inside of `<code>` spans, the scrolling does not work, because the anchor element is escaped (and appears in the text) 
+* allow anchors inside the document and links that jump to the anchors in both views
+	* best would be to just allow a "blind link target" with a simple syntax (e.g. just brackets) and a way to reference that target in the standard mdown link tag:
+	`This is some {interesting text} I would like to link to [here](interesting_text).`
+
 
 ###Export
 
