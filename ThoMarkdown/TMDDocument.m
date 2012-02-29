@@ -10,6 +10,8 @@
 #import "TMDExportAccessoryView.h"
 #import "TMDCompiler.h"
 
+typedef void (^ExportWebViewContentsBlock)(WebView *);
+
 @interface TMDDocument ()
 @property (strong) NSAttributedString *markdownContent;
 - (void)convertMarkdownToWebView;
@@ -17,9 +19,11 @@
 - (NSString *)displayNameWithoutExtension;
 - (void)syncScrollViews;
 - (void)cheatSpaceCharIntoWebView;
+- (void)outputViewBoundsDidChange:(NSNotification *)theNotification;
 @property (assign) NSRange caretPos;
 @property (strong) WebView *offScreenWebView;
 @property (strong) NSWindow *offScreenWindow;
+@property (copy) ExportWebViewContentsBlock exportWebViewContents;
 @end
 
 @implementation TMDDocument
@@ -29,6 +33,8 @@
 	NSWindow *offScreenWindow;
 	
 	NSRange caretPos;
+	
+	ExportWebViewContentsBlock exportWebViewContents;
 }
 
 @synthesize exportAccessoryView;
@@ -39,6 +45,7 @@
 @synthesize themesDictionaryController;
 @synthesize caretPos;
 @synthesize offScreenWebView, offScreenWindow;
+@synthesize exportWebViewContents;
 
 - (id)init
 {
@@ -74,6 +81,10 @@
 	[self convertMarkdownToWebView];
 	[self.OutputView setPolicyDelegate:self];
 	[self.OutputView setFrameLoadDelegate:self];
+	
+	[self.OutputView setPostsFrameChangedNotifications:YES];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outputViewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:self.OutputView];
+	
 	[self.themesDictionaryController addObserver:self forKeyPath:@"selectionIndex" options:NSKeyValueObservingOptionNew context:NULL];	
 	
 	// create offscreen webview
@@ -84,6 +95,9 @@
 														  screen : nil];
 	self.offScreenWebView = [[WebView alloc] initWithFrame:NSMakeRect(.0, .0, 300.0, 500.0)];
 	self.offScreenWindow.contentView = self.offScreenWebView;
+	self.offScreenWebView.shouldUpdateWhileOffscreen = YES;
+	[self.offScreenWebView setFrameLoadDelegate:self];
+	self.offScreenWebView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -139,6 +153,11 @@
     }
 }
 
+- (void)outputViewBoundsDidChange:(NSNotification *)theNotification;
+{
+	[self.offScreenWindow setFrame:self.OutputView.bounds display:YES];
+}
+
 #pragma mark -
 #pragma mark IBActions
 
@@ -185,15 +204,22 @@
 	// for PDF and WebArchive, we need to render the HTML using an offscreen WebView
 	[[self.offScreenWebView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
 	
-	// WebArchive
-	WebArchive *archive = [[[self.offScreenWebView mainFrame] dataSource] webArchive];
-	[pasteBoard setData:[archive data] forType:WebArchivePboardType];
-
-	// PDF
-	NSView *docView = [[[self.offScreenWebView mainFrame] frameView] documentView];
-	NSRect docRect = docView.bounds;
-	docRect.size.height += 15;
-	[docView writePDFInsideRect:docRect toPasteboard:pasteBoard];
+	// we save a completion block that will put the contents of the offsecreen WebView onto the pasteboard
+	// after it has completed loading
+	
+	self.exportWebViewContents = ^(WebView *webView){
+		// WebArchive
+		WebArchive *archive = [[[webView mainFrame] dataSource] webArchive];
+		[pasteBoard setData:[archive data] forType:WebArchivePboardType];
+		
+		// PDF
+		NSView *docView = [[[webView mainFrame] frameView] documentView];
+		NSRect docRect = docView.bounds;
+		docRect.size.height += 15;
+		[docView writePDFInsideRect:docRect toPasteboard:pasteBoard];
+	};
+	
+	
 }
 
 - (IBAction)exportStyledDoc:(id)sender;
@@ -228,28 +254,37 @@
 		
 		TMDExportFormat format = (TMDExportFormat)[[(TMDExportAccessoryView *)[sp accessoryView] formatSelectionPopupButton] selectedTag];
 		
-		NSData *fileData;
-		
 		switch (format) {
 				
 			case kTMDExportFormatPDF:
 				{
 					// for PDF, we need to render the HTML using an offscreen WebView
+					// we save a completion block that will export the contents of the offsecreen WebView
+					// after it has completed loading
+					
 					[[self.offScreenWebView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
-					NSView *docView = [[[self.offScreenWebView mainFrame] frameView] documentView];
-					NSRect docRect = docView.bounds;
-					docRect.size.height += 15;
-					fileData = [docView dataWithPDFInsideRect:docRect];
-					if (![extension isEqualToString:@"pdf"]) {
-						theURL = [theURL URLByAppendingPathExtension:@"pdf"];
-					}
+					
+					self.exportWebViewContents = ^(WebView *webView){
+						NSView *docView = [[[webView mainFrame] frameView] documentView];
+						NSRect docRect = docView.bounds;
+						docRect.size.height += 15;
+						NSData *fileData = [docView dataWithPDFInsideRect:docRect];
+						NSURL *fileURL = theURL;
+						if (![extension isEqualToString:@"pdf"]) {
+							 fileURL = [theURL URLByAppendingPathExtension:@"pdf"];
+						}
+						[fileData writeToURL:fileURL atomically:NO];
+					};
 				}
 				break;
 				
 			case kTMDExportFormatHTML:
-				fileData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
-				if (![extension isEqualToString:@"htm"] && ![extension isEqualToString:@"html"]) {
-					theURL = [theURL URLByAppendingPathExtension:@"html"];
+				{
+					NSData *fileData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
+					if (![extension isEqualToString:@"htm"] && ![extension isEqualToString:@"html"]) {
+						theURL = [theURL URLByAppendingPathExtension:@"html"];
+					}
+					[fileData writeToURL:theURL atomically:NO];
 				}
 				break;
 				
@@ -259,10 +294,12 @@
 					NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:htmlData 
 																				   baseURL:[[self fileURL] baseURL] 
 																		documentAttributes:NULL];
-					fileData = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
+					NSData *fileData = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
 					if (![extension isEqualToString:@"rtf"]) {
 						theURL = [theURL URLByAppendingPathExtension:@"rtf"];
 					}
+					
+					[fileData writeToURL:theURL atomically:NO];
 				}
 				break;
 				
@@ -271,8 +308,6 @@
 				NSAssert(NO, @"Invalid export format: %d", format);
 				break;
 		}
-		
-		[fileData writeToURL:theURL atomically:NO];
 	}];
 }
 
@@ -304,8 +339,20 @@
 	[listener use];
 }
 
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-	[self syncScrollViews];
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame 
+{
+	// for the visible view, start the scroll sync java script
+	if ([sender isEqual:self.OutputView])
+	{
+		[self syncScrollViews];
+	}
+	// the offscreen view is used for export and pasteboard
+	// fire the loading completion block that will trigger the export
+	else if ([sender isEqual:self.offScreenWebView])
+	{
+		self.exportWebViewContents(sender);
+		self.exportWebViewContents = nil;
+	}
 }
 			
 #pragma mark -
