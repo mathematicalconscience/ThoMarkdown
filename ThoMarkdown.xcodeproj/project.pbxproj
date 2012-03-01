@@ -16,9 +16,7 @@
 		A40D972B14F1238C002DF7FD /* TMDDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A40D972A14F1238C002DF7FD /* TMDDocument.m */; };
 		A40D972E14F1238C002DF7FD /* TMDDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972C14F1238C002DF7FD /* TMDDocument.xib */; };
 		A40D973114F1238C002DF7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972F14F1238C002DF7FD /* MainMenu.xib */; };
-		A41DFF6E14F79C7B008E6FB7 /* scrolling.js in Sources */ = {isa = PBXBuildFile; fileRef = A41DFF6D14F79C7B008E6FB7 /* scrolling.js */; };
 		A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */ = {isa = PBXBuildFile; fileRef = A41DFF6D14F79C7B008E6FB7 /* scrolling.js */; };
-		A42FE94214FBA0A0002CDF78 /* cursorBlink.js in Sources */ = {isa = PBXBuildFile; fileRef = A42FE94114FBA0A0002CDF78 /* cursorBlink.js */; };
 		A42FE94414FBA291002CDF78 /* cursorBlink.js in Resources */ = {isa = PBXBuildFile; fileRef = A42FE94114FBA0A0002CDF78 /* cursorBlink.js */; };
 		A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */ = {isa = PBXBuildFile; fileRef = A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */; };
 		A481224714F13F5B00675F97 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A481224614F13F5A00675F97 /* WebKit.framework */; };
@@ -232,8 +230,6 @@
 				A4923F7714F2BB5E00AEC2E1 /* TMDStatusBarView.m in Sources */,
 				72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */,
 				A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */,
-				A41DFF6E14F79C7B008E6FB7 /* scrolling.js in Sources */,
-				A42FE94214FBA0A0002CDF78 /* cursorBlink.js in Sources */,
 				A4FC2C4A14FD3EF9003F2191 /* TMDCompiler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
