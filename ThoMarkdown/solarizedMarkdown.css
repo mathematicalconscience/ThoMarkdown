@@ -149,7 +149,7 @@ input[type="submit"] {
 input[type=checkbox], input[type=radio] {
   cursor: pointer;
 }
-/* override default chrome & firefox settings */
+/* override default chrome and firefox settings */
 input:not([type="image"]), textarea {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
