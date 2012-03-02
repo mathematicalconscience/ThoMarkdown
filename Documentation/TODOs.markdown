@@ -30,3 +30,18 @@
 
 * create the possibility to include CSSs for different media
 	* identify by file name, e.g., _style_screen.css_ and _style_print.css_
+
+### File Format
+
+I would like to support storing the selected css with the markdown, so that it opens the same way it was edited last. That would require defining a subtype of the `net.daringfireball.markdown` UTI and developing an own quick look and spotlight plugin.
+both seems like a lot of work but also a nice idea.
+
+* Questions
+	* should the css be stored in the file or just the name of it?
+		* __Name:__ keeps the text readable but does not work when sent to machine where the CSS is not available
+		* __Full:__ the opposite ;)
+	* the plugins must be fast… what do we use to compile?
+	* it seems even easier to make a bundle, containing a thumbnail, the text, and the CSS
+		* this again defeats the purpose of simple text files :)
+
+
