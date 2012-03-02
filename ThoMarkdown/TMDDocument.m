@@ -9,6 +9,7 @@
 #import "TMDDocument.h"
 #import "TMDExportAccessoryView.h"
 #import "TMDCompiler.h"
+#import "TMDEpubExport.h"
 
 typedef void (^ExportWebViewContentsBlock)(WebView *);
 
@@ -300,6 +301,16 @@ typedef void (^ExportWebViewContentsBlock)(WebView *);
 					}
 					
 					[fileData writeToURL:theURL atomically:NO];
+				}
+				break;
+				
+			case kTMDExportFormatEpub:
+				{
+					if (![extension isEqualToString:@"ePub"]) {
+						theURL = [theURL URLByAppendingPathExtension:@"ePub"];
+					}
+					
+					[TMDEpubExport exportChapter:htmlString toPath:theURL author:@"ThoMarkdown" title:self.displayNameWithoutExtension];
 				}
 				break;
 				

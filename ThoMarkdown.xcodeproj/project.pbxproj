@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */; };
 		72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */; };
+		A4067E841500E6E700834B8A /* TMDEpubExport.m in Sources */ = {isa = PBXBuildFile; fileRef = A4067E831500E6E700834B8A /* TMDEpubExport.m */; };
+		A4067E871500EA6C00834B8A /* bookDefaultCover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4067E861500EA6C00834B8A /* bookDefaultCover.jpg */; };
 		A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D971714F1238C002DF7FD /* Cocoa.framework */; };
 		A40D972214F1238C002DF7FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A40D972014F1238C002DF7FD /* InfoPlist.strings */; };
 		A40D972414F1238C002DF7FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A40D972314F1238C002DF7FD /* main.m */; };
@@ -33,6 +35,9 @@
 		72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarizedMarkdown.css; sourceTree = "<group>"; };
 		72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDThemeManager.h; sourceTree = "<group>"; };
 		72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDThemeManager.m; sourceTree = "<group>"; };
+		A4067E821500E6E700834B8A /* TMDEpubExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDEpubExport.h; sourceTree = "<group>"; };
+		A4067E831500E6E700834B8A /* TMDEpubExport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDEpubExport.m; sourceTree = "<group>"; };
+		A4067E861500EA6C00834B8A /* bookDefaultCover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bookDefaultCover.jpg; sourceTree = "<group>"; };
 		A40D971314F1238C002DF7FD /* ThoMarkdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThoMarkdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D971714F1238C002DF7FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A40D971A14F1238C002DF7FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -120,6 +125,8 @@
 		A40D971D14F1238C002DF7FD /* ThoMarkdown */ = {
 			isa = PBXGroup;
 			children = (
+				A4067E821500E6E700834B8A /* TMDEpubExport.h */,
+				A4067E831500E6E700834B8A /* TMDEpubExport.m */,
 				A40D972914F1238C002DF7FD /* TMDDocument.h */,
 				A40D972A14F1238C002DF7FD /* TMDDocument.m */,
 				A40D972C14F1238C002DF7FD /* TMDDocument.xib */,
@@ -140,6 +147,7 @@
 		A40D971E14F1238C002DF7FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A4067E861500EA6C00834B8A /* bookDefaultCover.jpg */,
 				A481224914F144F900675F97 /* multimarkdown */,
 				A40D971F14F1238C002DF7FD /* ThoMarkdown-Info.plist */,
 				A40D972014F1238C002DF7FD /* InfoPlist.strings */,
@@ -215,6 +223,7 @@
 				A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */,
 				72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */,
 				A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */,
+				A4067E871500EA6C00834B8A /* bookDefaultCover.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +240,7 @@
 				72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */,
 				A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */,
 				A4FC2C4A14FD3EF9003F2191 /* TMDCompiler.m in Sources */,
+				A4067E841500E6E700834B8A /* TMDEpubExport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
