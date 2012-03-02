@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F5795F914FB266B00D0B346 /* TMDEpubExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F5795F814FB266B00D0B346 /* TMDEpubExport.m */; };
-		3F5795FB14FC13FC00D0B346 /* bookDefaultCover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3F5795FA14FC13FC00D0B346 /* bookDefaultCover.jpg */; };
 		72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */ = {isa = PBXBuildFile; fileRef = 72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */; };
 		72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */; };
+		A4067E841500E6E700834B8A /* TMDEpubExport.m in Sources */ = {isa = PBXBuildFile; fileRef = A4067E831500E6E700834B8A /* TMDEpubExport.m */; };
+		A4067E871500EA6C00834B8A /* bookDefaultCover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4067E861500EA6C00834B8A /* bookDefaultCover.jpg */; };
 		A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A40D971714F1238C002DF7FD /* Cocoa.framework */; };
 		A40D972214F1238C002DF7FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A40D972014F1238C002DF7FD /* InfoPlist.strings */; };
 		A40D972414F1238C002DF7FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A40D972314F1238C002DF7FD /* main.m */; };
@@ -18,8 +18,8 @@
 		A40D972B14F1238C002DF7FD /* TMDDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = A40D972A14F1238C002DF7FD /* TMDDocument.m */; };
 		A40D972E14F1238C002DF7FD /* TMDDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972C14F1238C002DF7FD /* TMDDocument.xib */; };
 		A40D973114F1238C002DF7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A40D972F14F1238C002DF7FD /* MainMenu.xib */; };
-		A41DFF6E14F79C7B008E6FB7 /* scrolling.js in Sources */ = {isa = PBXBuildFile; fileRef = A41DFF6D14F79C7B008E6FB7 /* scrolling.js */; };
 		A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */ = {isa = PBXBuildFile; fileRef = A41DFF6D14F79C7B008E6FB7 /* scrolling.js */; };
+		A42FE94414FBA291002CDF78 /* cursorBlink.js in Resources */ = {isa = PBXBuildFile; fileRef = A42FE94114FBA0A0002CDF78 /* cursorBlink.js */; };
 		A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */ = {isa = PBXBuildFile; fileRef = A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */; };
 		A481224714F13F5B00675F97 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A481224614F13F5A00675F97 /* WebKit.framework */; };
 		A481224A14F144F900675F97 /* multimarkdown in Resources */ = {isa = PBXBuildFile; fileRef = A481224914F144F900675F97 /* multimarkdown */; };
@@ -28,15 +28,16 @@
 		A4923F7714F2BB5E00AEC2E1 /* TMDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4923F7614F2BB5E00AEC2E1 /* TMDStatusBarView.m */; };
 		A4923F7B14F2BE7000AEC2E1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4923F7A14F2BE7000AEC2E1 /* QuartzCore.framework */; };
 		A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */; };
+		A4FC2C4A14FD3EF9003F2191 /* TMDCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC2C4914FD3EF9003F2191 /* TMDCompiler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3F5795F714FB266B00D0B346 /* TMDEpubExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDEpubExport.h; sourceTree = "<group>"; };
-		3F5795F814FB266B00D0B346 /* TMDEpubExport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDEpubExport.m; sourceTree = "<group>"; };
-		3F5795FA14FC13FC00D0B346 /* bookDefaultCover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bookDefaultCover.jpg; sourceTree = "<group>"; };
 		72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarizedMarkdown.css; sourceTree = "<group>"; };
 		72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDThemeManager.h; sourceTree = "<group>"; };
 		72F4B2B614F2D3F900DEDA66 /* TMDThemeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDThemeManager.m; sourceTree = "<group>"; };
+		A4067E821500E6E700834B8A /* TMDEpubExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDEpubExport.h; sourceTree = "<group>"; };
+		A4067E831500E6E700834B8A /* TMDEpubExport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDEpubExport.m; sourceTree = "<group>"; };
+		A4067E861500EA6C00834B8A /* bookDefaultCover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bookDefaultCover.jpg; sourceTree = "<group>"; };
 		A40D971314F1238C002DF7FD /* ThoMarkdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThoMarkdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A40D971714F1238C002DF7FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A40D971A14F1238C002DF7FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -52,6 +53,7 @@
 		A40D972D14F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TMDDocument.xib; sourceTree = "<group>"; };
 		A40D973014F1238C002DF7FD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A41DFF6D14F79C7B008E6FB7 /* scrolling.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = scrolling.js; sourceTree = "<group>"; };
+		A42FE94114FBA0A0002CDF78 /* cursorBlink.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cursorBlink.js; sourceTree = "<group>"; };
 		A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ThoMarkdownDoc.icns; sourceTree = "<group>"; };
 		A481224614F13F5A00675F97 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A481224914F144F900675F97 /* multimarkdown */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = multimarkdown; sourceTree = "<group>"; };
@@ -62,6 +64,8 @@
 		A4923F7A14F2BE7000AEC2E1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A4923F8A14F56ED300AEC2E1 /* TMDExportAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDExportAccessoryView.h; sourceTree = "<group>"; };
 		A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDExportAccessoryView.m; sourceTree = "<group>"; };
+		A4FC2C4814FD3EF9003F2191 /* TMDCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDCompiler.h; sourceTree = "<group>"; };
+		A4FC2C4914FD3EF9003F2191 /* TMDCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDCompiler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,15 +82,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F5795F514FB222C00D0B346 /* epub */ = {
-			isa = PBXGroup;
-			children = (
-				3F5795F714FB266B00D0B346 /* TMDEpubExport.h */,
-				3F5795F814FB266B00D0B346 /* TMDEpubExport.m */,
-			);
-			name = epub;
-			sourceTree = "<group>";
-		};
 		A40D970814F1238C002DF7FD = {
 			isa = PBXGroup;
 			children = (
@@ -130,10 +125,13 @@
 		A40D971D14F1238C002DF7FD /* ThoMarkdown */ = {
 			isa = PBXGroup;
 			children = (
-				3F5795F514FB222C00D0B346 /* epub */,
+				A4067E821500E6E700834B8A /* TMDEpubExport.h */,
+				A4067E831500E6E700834B8A /* TMDEpubExport.m */,
 				A40D972914F1238C002DF7FD /* TMDDocument.h */,
 				A40D972A14F1238C002DF7FD /* TMDDocument.m */,
 				A40D972C14F1238C002DF7FD /* TMDDocument.xib */,
+				A4FC2C4814FD3EF9003F2191 /* TMDCompiler.h */,
+				A4FC2C4914FD3EF9003F2191 /* TMDCompiler.m */,
 				A4923F7514F2BB5E00AEC2E1 /* TMDStatusBarView.h */,
 				A4923F7614F2BB5E00AEC2E1 /* TMDStatusBarView.m */,
 				72F4B2B514F2D3F900DEDA66 /* TMDThemeManager.h */,
@@ -149,7 +147,7 @@
 		A40D971E14F1238C002DF7FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3F5795FA14FC13FC00D0B346 /* bookDefaultCover.jpg */,
+				A4067E861500EA6C00834B8A /* bookDefaultCover.jpg */,
 				A481224914F144F900675F97 /* multimarkdown */,
 				A40D971F14F1238C002DF7FD /* ThoMarkdown-Info.plist */,
 				A40D972014F1238C002DF7FD /* InfoPlist.strings */,
@@ -159,6 +157,7 @@
 				72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */,
 				A481225214F14EA000675F97 /* style.css */,
 				A41DFF6D14F79C7B008E6FB7 /* scrolling.js */,
+				A42FE94114FBA0A0002CDF78 /* cursorBlink.js */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -220,10 +219,11 @@
 				A481224A14F144F900675F97 /* multimarkdown in Resources */,
 				A481225514F14EA000675F97 /* style.css in Resources */,
 				A481225714F15C3B00675F97 /* ThoMarkdownIcon.icns in Resources */,
+				A42FE94414FBA291002CDF78 /* cursorBlink.js in Resources */,
 				A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */,
 				72A76C0E14F66EA9003730C9 /* solarizedMarkdown.css in Resources */,
 				A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */,
-				3F5795FB14FC13FC00D0B346 /* bookDefaultCover.jpg in Resources */,
+				A4067E871500EA6C00834B8A /* bookDefaultCover.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,8 +239,8 @@
 				A4923F7714F2BB5E00AEC2E1 /* TMDStatusBarView.m in Sources */,
 				72F4B2B714F2D3F900DEDA66 /* TMDThemeManager.m in Sources */,
 				A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */,
-				A41DFF6E14F79C7B008E6FB7 /* scrolling.js in Sources */,
-				3F5795F914FB266B00D0B346 /* TMDEpubExport.m in Sources */,
+				A4FC2C4A14FD3EF9003F2191 /* TMDCompiler.m in Sources */,
+				A4067E841500E6E700834B8A /* TMDEpubExport.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

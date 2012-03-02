@@ -8,35 +8,45 @@
 
 #import "TMDDocument.h"
 #import "TMDExportAccessoryView.h"
+#import "TMDCompiler.h"
 #import "TMDEpubExport.h"
+
+typedef void (^ExportWebViewContentsBlock)(WebView *);
 
 @interface TMDDocument ()
 @property (strong) NSAttributedString *markdownContent;
-@property (strong) NSString *htmlContent;
 - (void)convertMarkdownToWebView;
-- (NSString *)convertMarkdownToXHTML;
 - (void)updateSyntaxHighlighting; 
 - (NSString *)displayNameWithoutExtension;
 - (void)syncScrollViews;
 - (void)cheatSpaceCharIntoWebView;
+- (void)outputViewBoundsDidChange:(NSNotification *)theNotification;
 @property (assign) NSRange caretPos;
+@property (strong) WebView *offScreenWebView;
+@property (strong) NSWindow *offScreenWindow;
+@property (copy) ExportWebViewContentsBlock exportWebViewContents;
 @end
 
 @implementation TMDDocument
 {
 	NSAttributedString *markdownContent;
-	NSString *htmlContent;
+	WebView *offScreenWebView;
+	NSWindow *offScreenWindow;
 	
 	NSRange caretPos;
+	
+	ExportWebViewContentsBlock exportWebViewContents;
 }
 
 @synthesize exportAccessoryView;
 @synthesize MarkdownTextView;
 @synthesize OutputView;
-@synthesize markdownContent, htmlContent;
+@synthesize markdownContent;
 @synthesize wordCount;
 @synthesize themesDictionaryController;
 @synthesize caretPos;
+@synthesize offScreenWebView, offScreenWindow;
+@synthesize exportWebViewContents;
 
 - (id)init
 {
@@ -45,7 +55,6 @@
 		// Add your subclass-specific initialization here.
 		// If an error occurs here, return nil.
 			self.markdownContent = [[NSAttributedString alloc] initWithString:@""];
-			self.htmlContent = [[NSString alloc] initWithString:@""];
     }
     return self;
 }
@@ -65,13 +74,31 @@
 	[self.MarkdownTextView setUsesFontPanel:NO];
 	[[self.MarkdownTextView textStorage] setDelegate:self];
 	[[self.MarkdownTextView textStorage] setAttributedString:self.markdownContent];
+	[self.MarkdownTextView setDelegate:self];
+	self.markdownContent = [self.MarkdownTextView textStorage];
 	self.wordCount = [[[self.MarkdownTextView textStorage] words] count];
 	NSFont *fixedWidthFont = [NSFont userFixedPitchFontOfSize:12.0];
 	[self.MarkdownTextView setFont:fixedWidthFont];
 	[self convertMarkdownToWebView];
 	[self.OutputView setPolicyDelegate:self];
 	[self.OutputView setFrameLoadDelegate:self];
+	
+	[self.OutputView setPostsFrameChangedNotifications:YES];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outputViewBoundsDidChange:) name:NSViewFrameDidChangeNotification object:self.OutputView];
+	
 	[self.themesDictionaryController addObserver:self forKeyPath:@"selectionIndex" options:NSKeyValueObservingOptionNew context:NULL];	
+	
+	// create offscreen webview
+	self.offScreenWindow = [[NSWindow alloc] initWithContentRect : NSMakeRect( 0.0, 0.0, 300.0, 500.0 )
+													   styleMask : NSBorderlessWindowMask
+														 backing : NSBackingStoreNonretained
+														   defer : NO
+														  screen : nil];
+	self.offScreenWebView = [[WebView alloc] initWithFrame:NSMakeRect(.0, .0, 300.0, 500.0)];
+	self.offScreenWindow.contentView = self.offScreenWebView;
+	self.offScreenWebView.shouldUpdateWhileOffscreen = YES;
+	[self.offScreenWebView setFrameLoadDelegate:self];
+	self.offScreenWebView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -127,6 +154,11 @@
     }
 }
 
+- (void)outputViewBoundsDidChange:(NSNotification *)theNotification;
+{
+	[self.offScreenWindow setFrame:self.OutputView.bounds display:YES];
+}
+
 #pragma mark -
 #pragma mark IBActions
 
@@ -135,23 +167,60 @@
 	// Clipboard reps
 	// Webarchive, PDF, RTF, HTML, markdown plaintext
 	
-	WebArchive *archive = [[[self.OutputView mainFrame] dataSource] webArchive];
-	NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:[self.htmlContent dataUsingEncoding:NSUTF8StringEncoding] 
+	
+	// we first need to compile a 'clean' version of the html with CSS
+	NSArray *cssURLs = nil;
+	if ([self.themesDictionaryController selectionIndex] != NSNotFound)
+	{
+		NSURL *cssURL = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
+		cssURLs = [NSArray arrayWithObject:cssURL];
+	}
+	// run compiler
+	NSString *htmlString = [TMDCompiler htmlFromMarkdown:[self.markdownContent string]
+												   title:self.displayNameWithoutExtension
+												 scripts:nil
+													 css:cssURLs];
+
+	
+	// set up pasteboard
+	NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
+	[pasteBoard clearContents];
+
+	
+	// plain text
+	[pasteBoard setString:[self.markdownContent string] forType:NSStringPboardType];
+		
+	// HTML
+	[pasteBoard setString:htmlString forType:NSHTMLPboardType];
+	
+	// RTF
+	NSData *htmlData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
+	NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:htmlData 
 																   baseURL:[[self fileURL] baseURL] 
 														documentAttributes:NULL];
 	NSData *rtf = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
-	
-	NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
-	[pasteBoard clearContents];
-	
-	[pasteBoard setData:[archive data] forType:WebArchivePboardType];
-	NSView *docView = [[[self.OutputView mainFrame] frameView] documentView];
-	NSRect docRect = docView.bounds;
-	docRect.size.height += 15;
-	[docView writePDFInsideRect:docRect toPasteboard:pasteBoard];
 	[pasteBoard setData:rtf forType:NSRTFPboardType];	
-	[pasteBoard setString:self.htmlContent forType:NSHTMLPboardType];	
-	[pasteBoard setString:[self.markdownContent string] forType:NSStringPboardType];
+	
+	
+	// for PDF and WebArchive, we need to render the HTML using an offscreen WebView
+	[[self.offScreenWebView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
+	
+	// we save a completion block that will put the contents of the offsecreen WebView onto the pasteboard
+	// after it has completed loading
+	
+	self.exportWebViewContents = ^(WebView *webView){
+		// WebArchive
+		WebArchive *archive = [[[webView mainFrame] dataSource] webArchive];
+		[pasteBoard setData:[archive data] forType:WebArchivePboardType];
+		
+		// PDF
+		NSView *docView = [[[webView mainFrame] frameView] documentView];
+		NSRect docRect = docView.bounds;
+		docRect.size.height += 15;
+		[docView writePDFInsideRect:docRect toPasteboard:pasteBoard];
+	};
+	
+	
 }
 
 - (IBAction)exportStyledDoc:(id)sender;
@@ -162,12 +231,23 @@
 	
 	[sp setNameFieldStringValue:[self displayNameWithoutExtension]];
 	NSWindow *docWindow = [(NSWindowController *)[self.windowControllers objectAtIndex:0] window];
-	[sp beginSheetModalForWindow:docWindow completionHandler:^(NSInteger result) 
-	{
-		if (result == NSFileHandlingPanelCancelButton) 
-		{
+	[sp beginSheetModalForWindow:docWindow  completionHandler:^(NSInteger result) {
+		if (result == NSFileHandlingPanelCancelButton) {
 			return;
 		}
+		
+		// we first need to compile a 'clean' version of the html with CSS
+		NSArray *cssURLs = nil;
+		if ([self.themesDictionaryController selectionIndex] != NSNotFound)
+		{
+			NSURL *cssURL = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
+			cssURLs = [NSArray arrayWithObject:cssURL];
+		}
+		// run compiler
+		NSString *htmlString = [TMDCompiler htmlFromMarkdown:[self.markdownContent string]
+													   title:self.displayNameWithoutExtension
+													 scripts:nil
+														 css:cssURLs];
 		
 		NSURL *theURL = [sp URL];
 		
@@ -175,43 +255,48 @@
 		
 		TMDExportFormat format = (TMDExportFormat)[[(TMDExportAccessoryView *)[sp accessoryView] formatSelectionPopupButton] selectedTag];
 		
-		NSData *fileData;
-		
 		switch (format) {
 				
 			case kTMDExportFormatPDF:
 				{
-					NSView *docView = [[[self.OutputView mainFrame] frameView] documentView];
-					NSRect docRect = docView.bounds;
-					docRect.size.height += 15;
-					fileData = [docView dataWithPDFInsideRect:docRect];
-					if (![extension isEqualToString:@"pdf"])
-					{
-						theURL = [theURL URLByAppendingPathExtension:@"pdf"];
-					}
+					// for PDF, we need to render the HTML using an offscreen WebView
+					// we save a completion block that will export the contents of the offsecreen WebView
+					// after it has completed loading
 					
-					[fileData writeToURL:theURL atomically:NO];
+					[[self.offScreenWebView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
+					
+					self.exportWebViewContents = ^(WebView *webView){
+						NSView *docView = [[[webView mainFrame] frameView] documentView];
+						NSRect docRect = docView.bounds;
+						docRect.size.height += 15;
+						NSData *fileData = [docView dataWithPDFInsideRect:docRect];
+						NSURL *fileURL = theURL;
+						if (![extension isEqualToString:@"pdf"]) {
+							 fileURL = [theURL URLByAppendingPathExtension:@"pdf"];
+						}
+						[fileData writeToURL:fileURL atomically:NO];
+					};
 				}
 				break;
 				
 			case kTMDExportFormatHTML:
-				fileData = [self.htmlContent dataUsingEncoding:NSUTF8StringEncoding];
-				if (![extension isEqualToString:@"htm"] && ![extension isEqualToString:@"html"])
 				{
-					theURL = [theURL URLByAppendingPathExtension:@"html"];
+					NSData *fileData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
+					if (![extension isEqualToString:@"htm"] && ![extension isEqualToString:@"html"]) {
+						theURL = [theURL URLByAppendingPathExtension:@"html"];
+					}
+					[fileData writeToURL:theURL atomically:NO];
 				}
-				[fileData writeToURL:theURL atomically:NO];
-
 				break;
 				
 			case kTMDExportFormatRTF:
 				{
-					NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:[self.htmlContent dataUsingEncoding:NSUTF8StringEncoding] 
+					NSData *htmlData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
+					NSAttributedString *attrStr = [[NSAttributedString alloc] initWithHTML:htmlData 
 																				   baseURL:[[self fileURL] baseURL] 
 																		documentAttributes:NULL];
-					fileData = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
-					if (![extension isEqualToString:@"rtf"])
-					{
+					NSData *fileData = [attrStr RTFFromRange:NSMakeRange(0, [attrStr length]) documentAttributes:nil];
+					if (![extension isEqualToString:@"rtf"]) {
 						theURL = [theURL URLByAppendingPathExtension:@"rtf"];
 					}
 					
@@ -221,21 +306,13 @@
 				
 			case kTMDExportFormatEpub:
 				{
-					if (![extension isEqualToString:@"epub"]) 
-					{
-						theURL = [theURL URLByAppendingPathExtension:@"epub"];
+					if (![extension isEqualToString:@"ePub"]) {
+						theURL = [theURL URLByAppendingPathExtension:@"ePub"];
 					}
-					NSString* bookAuthor	= NSFullUserName();
-					NSString* bookTitle	= [self displayNameWithoutExtension];
 					
-					[TMDEpubExport exportChapter:[self convertMarkdownToXHTML]
-										  toPath:theURL
-										  author:bookAuthor
-										   title:bookTitle];
+					[TMDEpubExport exportChapter:htmlString toPath:theURL author:@"ThoMarkdown" title:self.displayNameWithoutExtension];
 				}
 				break;
-
-				
 				
 			case kTMDExportFormatInvalid:
 			default:
@@ -273,24 +350,21 @@
 	[listener use];
 }
 
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-	if (YES) 
+- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame 
+{
+	// for the visible view, start the scroll sync java script
+	if ([sender isEqual:self.OutputView])
 	{
 		[self syncScrollViews];
 	}
+	// the offscreen view is used for export and pasteboard
+	// fire the loading completion block that will trigger the export
+	else if ([sender isEqual:self.offScreenWebView])
+	{
+		self.exportWebViewContents(sender);
+		self.exportWebViewContents = nil;
+	}
 }
-
-/*
-- (NSResponder *)webViewFirstResponder:(WebView *)sender
-{
-	return self.MarkdownTextView;
-}
-
-- (void)webView:(WebView *)sender makeFirstResponder:(NSResponder *)responder
-{
-	NSLog(@"d;akjbeg");
-}
- */
 			
 #pragma mark -
 #pragma mark private methods
@@ -318,144 +392,48 @@
 
 - (void)convertMarkdownToWebView;
 {
-	NSTask *mmd = [[NSTask alloc] init];
-	NSString *launchPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"multimarkdown"];
-	[mmd setLaunchPath:launchPath];
-		
-	NSPipe *outPipe;
-	outPipe = [NSPipe pipe];
-	[mmd setStandardOutput: outPipe];
-	NSPipe *inPipe;
-	inPipe = [NSPipe pipe];
-	[mmd setStandardInput:inPipe];
-	
-	NSFileHandle *inFile;
-	inFile = [inPipe fileHandleForWriting];
-	
-	NSFileHandle *outFile;
-	outFile = [outPipe fileHandleForReading];
+	// inject anchor at caret pos 
+	NSMutableString *markdownString = [[self.markdownContent string] mutableCopy];
+	[markdownString insertString:@"<a name=\"caretPos\" class=\"cursor\">❮</a>" atIndex:self.caretPos.location];
 	
 	
-	[mmd launch];
+	NSArray *jsURLS = [NSArray arrayWithObjects:
+					   [[NSBundle mainBundle] URLForResource:@"cursorBlink" withExtension:@"js"],
+					   [[NSBundle mainBundle] URLForResource:@"scrolling" withExtension:@"js"],
+					   nil];
 	
-	// inject anchor at caret pos and serialize to NSData
-	
-	NSData *inData;
-    self.markdownContent = [self.MarkdownTextView textStorage];
-	NSMutableString *plainString = [[self.markdownContent string] mutableCopy];
-	[plainString insertString:@"<a name=\"caretPos\">❮</a>" atIndex:self.caretPos.location];
-	inData = [plainString dataUsingEncoding:NSUTF8StringEncoding];
-	
-	[inFile writeData:inData];
-	[inFile closeFile];
-	
-	
-	NSData *data;
-	data = [outFile readDataToEndOfFile];
-	
-	NSMutableString *htmlString = [NSMutableString string];
 
-	// prepend html header
-	[htmlString appendFormat:@"<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
-	"\"http://www.w3.org/TR/html4/strict.dtd\">\n"
-	"<html lang=\"en\">\n"
-	"<head>\n"
-	"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n"
-	"<title>%@</title>\n"
-	"</head>\n"
-	"<body>\n",
-	 self.displayNameWithoutExtension];
-
-	// prepend scrolling java script
-	NSURL *jsURL = [[NSBundle mainBundle] URLForResource:@"scrolling" withExtension:@"js"];
-	NSString *jsPath = [jsURL path];
-	[htmlString appendFormat:@"<script type=\"text/javascript\" src=\"%@\"></script>", jsPath];
-
-	
-	// prepend css style opening tag
-	[htmlString appendString:@"<style media=\"screen\" type=\"text/css\">\n"];
-	
-	// add css to html
+	// css
+	NSArray *cssURLs = nil;
 	if ([self.themesDictionaryController selectionIndex] != NSNotFound)
 	{
-		NSError *error;
-		NSURL *pathToCSS = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
-		//[htmlString appendString:[NSString stringWithFormat:@"<link rel=\"stylesheet\" href=\"%@\">", pathToCSS]];
-		NSString *css = [NSString stringWithContentsOfURL:pathToCSS encoding:NSUTF8StringEncoding error:&error];
-		[htmlString appendString:css];
+		NSURL *cssURL = [[self.themesDictionaryController valueForKeyPath:@"arrangedObjects.value"] objectAtIndex:self.themesDictionaryController.selectionIndex]; 
+		cssURLs = [NSArray arrayWithObject:cssURL];
 	}
 	
-	// add css style closing tag
-	[htmlString appendString:@"</style>\n"];
 	
-	// add markdown html
-	[htmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
+	// run compiler
+	NSString *htmlString = [TMDCompiler htmlFromMarkdown:markdownString
+												   title:self.displayNameWithoutExtension
+												 scripts:jsURLS
+													 css:cssURLs];
 	
-	// add html footer
-	[htmlString appendString:@"</body>\n</html>\n"];
-	
-	[[self.OutputView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];
-	
-	// TODO: strip anchor tag before storing html (it's used for export)
-	// TODO: strip java script reference before storing html (it's used for export)
-	
-	self.htmlContent = htmlString;
+	// send html to WebView
+	[[self.OutputView mainFrame] loadHTMLString:htmlString baseURL:[[NSBundle mainBundle] resourceURL]];	
 }
 
 
-- (NSString *) convertMarkdownToXHTML
+#pragma mark -
+#pragma mark NSTextDelegate
+
+- (void)textViewDidChangeSelection:(NSNotification *)notification
 {
-	NSTask *mmd = [[NSTask alloc] init];
-	NSString *launchPath = [NSString stringWithFormat:@"%@/%@", 
-							[[NSBundle mainBundle] resourcePath], @"multimarkdown"];
-	[mmd setLaunchPath:launchPath];
-	
-	NSPipe *outPipe;
-	outPipe = [NSPipe pipe];
-	[mmd setStandardOutput: outPipe];
-	NSPipe *inPipe;
-	inPipe = [NSPipe pipe];
-	[mmd setStandardInput:inPipe];
-	
-	NSFileHandle *inFile;
-	inFile = [inPipe fileHandleForWriting];
-	
-	NSFileHandle *outFile;
-	outFile = [outPipe fileHandleForReading];
-	
-	
-	[mmd launch];
-	
-	// pass current text view contents
-	self.markdownContent = [self.MarkdownTextView textStorage];
-	NSData *inData = [[self.markdownContent string] dataUsingEncoding:NSUTF8StringEncoding];
-	
-	[inFile writeData:inData];
-	[inFile closeFile];
-	NSData *data = [outFile readDataToEndOfFile];
-
-	
-	// prepend xhtml header and opening body tag
-	NSMutableString *xhtmlString = [NSMutableString string];
-	[xhtmlString appendString:
-	 @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-	 "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n"
-	 "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n"
-	 "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-	 "<head>\n"
-	 "<title></title>\n"
-	 "</head>\n"	
-	 "<body>\n"];
-
-	// add markdown html
-	[xhtmlString appendString:[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]];
-	
-	// add html footer
-	[xhtmlString appendString:@"</body>\n</html>\n"];
-	
-	return xhtmlString;
+	// TODO: it is actually too costly to make the markdown every time
+	// we just do it here to change the cursor position
+	// need to find a way to just move the caretPos anchor tag around the html
+	self.caretPos = [self.MarkdownTextView selectedRange];
+	[self convertMarkdownToWebView];
 }
-
 
 #pragma mark -
 #pragma mark NSTextDelegate
@@ -480,7 +458,7 @@
 	self.caretPos = newCaretPos;
 	
 	// if a space was inserted, DO NOT RELOAD THE WEB VIEW
-	// TODO: Cheat a space into the view via JS instead
+	// Cheat a space into the view via JS instead
 	if (!spaceEntered)
 		[self convertMarkdownToWebView];
 	else
