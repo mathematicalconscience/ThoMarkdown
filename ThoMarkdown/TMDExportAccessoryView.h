@@ -8,11 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef enum TMDExportFormats {
+typedef enum TMDExportFormats 
+{
 	kTMDExportFormatInvalid = -1,
 	kTMDExportFormatPDF,
 	kTMDExportFormatHTML,
 	kTMDExportFormatRTF,
+	kTMDExportFormatEpub,
 	kTMDExportFormatCount
 } TMDExportFormat;
 
