@@ -19,6 +19,7 @@
 		A41DFF7014F7A262008E6FB7 /* scrolling.js in Resources */ = {isa = PBXBuildFile; fileRef = A41DFF6D14F79C7B008E6FB7 /* scrolling.js */; };
 		A42FE94414FBA291002CDF78 /* cursorBlink.js in Resources */ = {isa = PBXBuildFile; fileRef = A42FE94114FBA0A0002CDF78 /* cursorBlink.js */; };
 		A45F131614F83B8F0090E2B3 /* ThoMarkdownDoc.icns in Resources */ = {isa = PBXBuildFile; fileRef = A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */; };
+		A47241C315012865009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = A47241C215012865009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator */; };
 		A481224714F13F5B00675F97 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A481224614F13F5A00675F97 /* WebKit.framework */; };
 		A481224A14F144F900675F97 /* multimarkdown in Resources */ = {isa = PBXBuildFile; fileRef = A481224914F144F900675F97 /* multimarkdown */; };
 		A481225514F14EA000675F97 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = A481225214F14EA000675F97 /* style.css */; };
@@ -28,6 +29,19 @@
 		A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */; };
 		A4FC2C4A14FD3EF9003F2191 /* TMDCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC2C4914FD3EF9003F2191 /* TMDCompiler.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A47241C11501283C009EC47A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ../Library/QuickLook;
+			dstSubfolderSpec = 7;
+			files = (
+				A47241C315012865009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		72A76C0D14F66EA9003730C9 /* solarizedMarkdown.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarizedMarkdown.css; sourceTree = "<group>"; };
@@ -50,6 +64,7 @@
 		A41DFF6D14F79C7B008E6FB7 /* scrolling.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = scrolling.js; sourceTree = "<group>"; };
 		A42FE94114FBA0A0002CDF78 /* cursorBlink.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = cursorBlink.js; sourceTree = "<group>"; };
 		A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ThoMarkdownDoc.icns; sourceTree = "<group>"; };
+		A47241C215012865009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = ThoMarkdownQuickLookPlugIn.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		A481224614F13F5A00675F97 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A481224914F144F900675F97 /* multimarkdown */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = multimarkdown; sourceTree = "<group>"; };
 		A481225214F14EA000675F97 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = style.css; path = CSS/style.css; sourceTree = "<group>"; };
@@ -83,6 +98,7 @@
 				A45F131514F83B8F0090E2B3 /* ThoMarkdownDoc.icns */,
 				A481225614F15C3B00675F97 /* ThoMarkdownIcon.icns */,
 				A40D971D14F1238C002DF7FD /* ThoMarkdown */,
+				A47241BF15012816009EC47A /* Library */,
 				A40D971614F1238C002DF7FD /* Frameworks */,
 				A40D971414F1238C002DF7FD /* Products */,
 			);
@@ -154,6 +170,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		A47241BF15012816009EC47A /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				A47241C215012865009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -164,6 +188,7 @@
 				A40D970F14F1238C002DF7FD /* Sources */,
 				A40D971014F1238C002DF7FD /* Frameworks */,
 				A40D971114F1238C002DF7FD /* Resources */,
+				A47241C11501283C009EC47A /* CopyFiles */,
 			);
 			buildRules = (
 			);

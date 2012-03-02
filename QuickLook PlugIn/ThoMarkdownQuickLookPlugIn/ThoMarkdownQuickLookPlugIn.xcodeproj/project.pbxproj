@@ -1,0 +1,312 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A472418E15011336009EC47A /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A472418D15011336009EC47A /* QuickLook.framework */; };
+		A472419015011336009EC47A /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A472418F15011336009EC47A /* ApplicationServices.framework */; };
+		A472419215011336009EC47A /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A472419115011336009EC47A /* CoreServices.framework */; };
+		A472419415011336009EC47A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A472419315011336009EC47A /* CoreFoundation.framework */; };
+		A472419A15011336009EC47A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A472419815011336009EC47A /* InfoPlist.strings */; };
+		A472419C15011336009EC47A /* GenerateThumbnailForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = A472419B15011336009EC47A /* GenerateThumbnailForURL.m */; };
+		A472419E15011336009EC47A /* GeneratePreviewForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = A472419D15011336009EC47A /* GeneratePreviewForURL.m */; };
+		A47241A015011336009EC47A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A472419F15011336009EC47A /* main.c */; };
+		A47241B31501225B009EC47A /* TMDCompiler.h in Headers */ = {isa = PBXBuildFile; fileRef = A47241B11501225B009EC47A /* TMDCompiler.h */; };
+		A47241B41501225B009EC47A /* TMDCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A47241B21501225B009EC47A /* TMDCompiler.m */; };
+		A47241BD15012727009EC47A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A47241BC15012727009EC47A /* Foundation.framework */; };
+		A47241C515012B50009EC47A /* multimarkdown in Resources */ = {isa = PBXBuildFile; fileRef = A47241C415012B50009EC47A /* multimarkdown */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A472418A15011336009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThoMarkdownQuickLookPlugIn.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		A472418D15011336009EC47A /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		A472418F15011336009EC47A /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		A472419115011336009EC47A /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		A472419315011336009EC47A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		A472419715011336009EC47A /* ThoMarkdownQuickLookPlugIn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ThoMarkdownQuickLookPlugIn-Info.plist"; sourceTree = "<group>"; };
+		A472419915011336009EC47A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A472419B15011336009EC47A /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; };
+		A472419D15011336009EC47A /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; };
+		A472419F15011336009EC47A /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		A47241A115011336009EC47A /* ThoMarkdownQuickLookPlugIn-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThoMarkdownQuickLookPlugIn-Prefix.pch"; sourceTree = "<group>"; };
+		A47241B11501225B009EC47A /* TMDCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TMDCompiler.h; path = ../../../ThoMarkdown/TMDCompiler.h; sourceTree = "<group>"; };
+		A47241B21501225B009EC47A /* TMDCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TMDCompiler.m; path = ../../../ThoMarkdown/TMDCompiler.m; sourceTree = "<group>"; };
+		A47241BC15012727009EC47A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A47241C415012B50009EC47A /* multimarkdown */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = multimarkdown; path = ../../../ThoMarkdown/multimarkdown; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A472418515011336009EC47A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A47241BD15012727009EC47A /* Foundation.framework in Frameworks */,
+				A472418E15011336009EC47A /* QuickLook.framework in Frameworks */,
+				A472419015011336009EC47A /* ApplicationServices.framework in Frameworks */,
+				A472419215011336009EC47A /* CoreServices.framework in Frameworks */,
+				A472419415011336009EC47A /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A472417D15011336009EC47A = {
+			isa = PBXGroup;
+			children = (
+				A472419515011336009EC47A /* ThoMarkdownQuickLookPlugIn */,
+				A472418C15011336009EC47A /* Frameworks */,
+				A472418B15011336009EC47A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A472418B15011336009EC47A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A472418A15011336009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A472418C15011336009EC47A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A47241BC15012727009EC47A /* Foundation.framework */,
+				A472418D15011336009EC47A /* QuickLook.framework */,
+				A472418F15011336009EC47A /* ApplicationServices.framework */,
+				A472419115011336009EC47A /* CoreServices.framework */,
+				A472419315011336009EC47A /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A472419515011336009EC47A /* ThoMarkdownQuickLookPlugIn */ = {
+			isa = PBXGroup;
+			children = (
+				A47241B11501225B009EC47A /* TMDCompiler.h */,
+				A47241B21501225B009EC47A /* TMDCompiler.m */,
+				A472419B15011336009EC47A /* GenerateThumbnailForURL.m */,
+				A472419D15011336009EC47A /* GeneratePreviewForURL.m */,
+				A472419F15011336009EC47A /* main.c */,
+				A472419615011336009EC47A /* Supporting Files */,
+			);
+			path = ThoMarkdownQuickLookPlugIn;
+			sourceTree = "<group>";
+		};
+		A472419615011336009EC47A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A47241C415012B50009EC47A /* multimarkdown */,
+				A472419715011336009EC47A /* ThoMarkdownQuickLookPlugIn-Info.plist */,
+				A472419815011336009EC47A /* InfoPlist.strings */,
+				A47241A115011336009EC47A /* ThoMarkdownQuickLookPlugIn-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		A472418615011336009EC47A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A47241B31501225B009EC47A /* TMDCompiler.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A472418915011336009EC47A /* ThoMarkdownQuickLookPlugIn */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A47241A415011336009EC47A /* Build configuration list for PBXNativeTarget "ThoMarkdownQuickLookPlugIn" */;
+			buildPhases = (
+				A472418415011336009EC47A /* Sources */,
+				A472418515011336009EC47A /* Frameworks */,
+				A472418615011336009EC47A /* Headers */,
+				A472418715011336009EC47A /* Resources */,
+				A472418815011336009EC47A /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ThoMarkdownQuickLookPlugIn;
+			productName = ThoMarkdownQuickLookPlugIn;
+			productReference = A472418A15011336009EC47A /* ThoMarkdownQuickLookPlugIn.qlgenerator */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A472417F15011336009EC47A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = A472418215011336009EC47A /* Build configuration list for PBXProject "ThoMarkdownQuickLookPlugIn" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A472417D15011336009EC47A;
+			productRefGroup = A472418B15011336009EC47A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A472418915011336009EC47A /* ThoMarkdownQuickLookPlugIn */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A472418715011336009EC47A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A472419A15011336009EC47A /* InfoPlist.strings in Resources */,
+				A47241C515012B50009EC47A /* multimarkdown in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		A472418815011336009EC47A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A472418415011336009EC47A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A472419C15011336009EC47A /* GenerateThumbnailForURL.m in Sources */,
+				A472419E15011336009EC47A /* GeneratePreviewForURL.m in Sources */,
+				A47241A015011336009EC47A /* main.c in Sources */,
+				A47241B41501225B009EC47A /* TMDCompiler.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A472419815011336009EC47A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A472419915011336009EC47A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A47241A215011336009EC47A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A47241A315011336009EC47A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A47241A515011336009EC47A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ThoMarkdownQuickLookPlugIn/ThoMarkdownQuickLookPlugIn-Prefix.pch";
+				INFOPLIST_FILE = "ThoMarkdownQuickLookPlugIn/ThoMarkdownQuickLookPlugIn-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Debug;
+		};
+		A47241A615011336009EC47A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ThoMarkdownQuickLookPlugIn/ThoMarkdownQuickLookPlugIn-Prefix.pch";
+				INFOPLIST_FILE = "ThoMarkdownQuickLookPlugIn/ThoMarkdownQuickLookPlugIn-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A472418215011336009EC47A /* Build configuration list for PBXProject "ThoMarkdownQuickLookPlugIn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A47241A215011336009EC47A /* Debug */,
+				A47241A315011336009EC47A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A47241A415011336009EC47A /* Build configuration list for PBXNativeTarget "ThoMarkdownQuickLookPlugIn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A47241A515011336009EC47A /* Debug */,
+				A47241A615011336009EC47A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A472417F15011336009EC47A /* Project object */;
+}
