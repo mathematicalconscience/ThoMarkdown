@@ -15,7 +15,7 @@
 	// setting up the mmd task
 	
 	NSTask *mmd = [[NSTask alloc] init];
-	NSString *launchPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], @"multimarkdown"];
+	NSString *launchPath = [NSString stringWithFormat:@"%@/%@", [[NSBundle bundleForClass:[self class]] resourcePath], @"multimarkdown"];
 	[mmd setLaunchPath:launchPath];
 	
 	NSPipe *outPipe;
