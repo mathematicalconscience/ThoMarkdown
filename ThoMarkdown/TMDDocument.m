@@ -136,6 +136,16 @@ typedef void (^ExportWebViewContentsBlock)(WebView *);
 		return NO;
 }
 
+
+- (void)presentedItemDidChange
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+		
+	});
+	[super presentedItemDidChange];
+}
+
+
 + (BOOL)autosavesInPlace
 {
     return YES;
