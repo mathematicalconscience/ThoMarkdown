@@ -14,6 +14,8 @@
 
 ###Architecture
 
+* make the internal working dir of the web view the dir of the document (this way we can embed local images)
+
 ###Export
 
 * Export to ePub
