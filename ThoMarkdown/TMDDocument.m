@@ -71,6 +71,7 @@ typedef void (^ExportWebViewContentsBlock)(WebView *);
 	// Add any code here that needs to be executed once the windowController has loaded the document's window.
 	[self.MarkdownTextView setRichText:NO];
 	[self.MarkdownTextView setUsesFontPanel:NO];
+	[self.MarkdownTextView setAutomaticDashSubstitutionEnabled:NO];
 	[[self.MarkdownTextView textStorage] setDelegate:self];
 	[[self.MarkdownTextView textStorage] setAttributedString:self.markdownContent];
 	[self.MarkdownTextView setDelegate:self];

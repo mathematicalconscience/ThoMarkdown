@@ -27,6 +27,7 @@
 		A4923F7714F2BB5E00AEC2E1 /* TMDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4923F7614F2BB5E00AEC2E1 /* TMDStatusBarView.m */; };
 		A4923F7B14F2BE7000AEC2E1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4923F7A14F2BE7000AEC2E1 /* QuartzCore.framework */; };
 		A4923F8C14F56ED300AEC2E1 /* TMDExportAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */; };
+		A4AF75881837E8ED00A610BF /* libMMMarkdown-Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4AF75871837E8ED00A610BF /* libMMMarkdown-Mac.a */; };
 		A4FC2C4A14FD3EF9003F2191 /* TMDCompiler.m in Sources */ = {isa = PBXBuildFile; fileRef = A4FC2C4914FD3EF9003F2191 /* TMDCompiler.m */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		A4923F7A14F2BE7000AEC2E1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A4923F8A14F56ED300AEC2E1 /* TMDExportAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDExportAccessoryView.h; sourceTree = "<group>"; };
 		A4923F8B14F56ED300AEC2E1 /* TMDExportAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDExportAccessoryView.m; sourceTree = "<group>"; };
+		A4AF75871837E8ED00A610BF /* libMMMarkdown-Mac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libMMMarkdown-Mac.a"; path = "DerivedData/Build/Products/Debug/libMMMarkdown-Mac.a"; sourceTree = "<group>"; };
 		A4FC2C4814FD3EF9003F2191 /* TMDCompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDCompiler.h; sourceTree = "<group>"; };
 		A4FC2C4914FD3EF9003F2191 /* TMDCompiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDCompiler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4AF75881837E8ED00A610BF /* libMMMarkdown-Mac.a in Frameworks */,
 				A4923F7B14F2BE7000AEC2E1 /* QuartzCore.framework in Frameworks */,
 				A481224714F13F5B00675F97 /* WebKit.framework in Frameworks */,
 				A40D971814F1238C002DF7FD /* Cocoa.framework in Frameworks */,
@@ -115,6 +118,7 @@
 		A40D971614F1238C002DF7FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4AF75871837E8ED00A610BF /* libMMMarkdown-Mac.a */,
 				A4923F7A14F2BE7000AEC2E1 /* QuartzCore.framework */,
 				A481224614F13F5A00675F97 /* WebKit.framework */,
 				A40D971714F1238C002DF7FD /* Cocoa.framework */,
@@ -300,7 +304,7 @@
 		A40D973214F1238C002DF7FD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
@@ -318,16 +322,22 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(CONFIGURATION_BUILD_DIR)/MMMarkdown-Mac/public/MMMarkdown",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		A40D973314F1238C002DF7FD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
@@ -339,8 +349,14 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(CONFIGURATION_BUILD_DIR)/MMMarkdown-Mac/public/MMMarkdown",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -350,6 +366,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ThoMarkdown/ThoMarkdown-Prefix.pch";
 				INFOPLIST_FILE = "ThoMarkdown/ThoMarkdown-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(CONFIGURATION_BUILD_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -361,6 +381,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ThoMarkdown/ThoMarkdown-Prefix.pch";
 				INFOPLIST_FILE = "ThoMarkdown/ThoMarkdown-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(CONFIGURATION_BUILD_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

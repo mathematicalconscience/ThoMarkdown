@@ -7,4 +7,7 @@
    <FileRef
       location = "container:ThoMarkdown.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ThoMarkdown/Submodules/MMMarkdown/MMMarkdown.xcodeproj">
+   </FileRef>
 </Workspace>

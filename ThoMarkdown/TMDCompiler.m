@@ -7,11 +7,14 @@
 //
 
 #import "TMDCompiler.h"
+#import "MMMarkdown.h"
 
 @implementation TMDCompiler
 
 +(NSString *)htmlFromMarkdown:(NSString *)theMarkdownString title:(NSString *)theTitle scripts:(NSArray *)theScriptURLS css:(NSArray *)theCSSURLS;
 {
+	
+	/*
 	// setting up the mmd task
 	
 	NSTask *mmd = [[NSTask alloc] init];
@@ -47,6 +50,11 @@
 	
 	NSData *outData;
 	outData = [outFile readDataToEndOfFile];
+	 */
+	
+	NSError  *error;
+	NSString *markdown   = theMarkdownString;
+	NSString *htmlMdString = [MMMarkdown HTMLStringWithMarkdown:markdown error:&error];
 	
 	
 	// build HTML =====================================
@@ -101,7 +109,8 @@
 	
 	
 	// add markdown html
-	[htmlString appendString:[[NSString alloc] initWithData:outData encoding:NSUTF8StringEncoding]];
+	//[htmlString appendString:[[NSString alloc] initWithData:outData encoding:NSUTF8StringEncoding]];
+	[htmlString appendString:htmlMdString];
 	
 	
 	// add html footer

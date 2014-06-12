@@ -1,0 +1,3 @@
+[submodule "ThoMarkdown/Submodules/MMMarkdown"]
+	path = ThoMarkdown/Submodules/MMMarkdown
+	url = https://github.com/mdiep/MMMarkdown.git
